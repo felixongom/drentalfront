@@ -1,0 +1,111 @@
+.hero_container{
+    background: linear-gradient(30deg, rgb(52, 76, 211), white);
+    height: 75vh;
+    display: flex;
+    align-items: center;
+
+
+    .inner_container{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: space-around;
+        padding: 20px;
+
+        div{
+            width: 35%;
+            .hero_heading{
+                width: 70%;
+                min-width: 300px;
+                color: white;
+                line-height: 45px;
+
+            }
+        }
+
+        .image_container{
+            min-width: 400px;
+            
+            .img {
+
+            }
+        }
+        @media only screen and (max-width: 750px) {
+            .image_container {
+                display: none;
+            }
+        }
+
+    }
+}
+ .cards{
+    // display:  flex;
+    justify-content: space-between;
+    gap: 30px;
+    // background-color: red;
+    // width: 100%;
+    
+} 
+.card{
+     height: 270px;
+     width: 30%;
+
+     .coardImageContaioner{
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+
+        img{
+            height: 100%;
+            width: 100%;
+        }
+     }
+     .detailsContainer{
+        height: 70px;
+        padding: 2px 3px;
+
+        .housetype{
+            background:linear-gradient(30deg, teal , cyan);
+            font-size: 10px;   
+        }
+        .rental{
+            background:linear-gradient(30deg,brown, orange);
+
+        }
+     }
+     .addressBox{
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+     }
+ }
+ @media only screen and (max-width: 750px) {
+    .cards {
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+
+
+    }
+.card{
+    margin-top: 20px;
+    width: 90%;
+
+}
+}  
+// styling for animate_search
+.animate_search{
+    right: -1000px;
+    position: absolute;
+    transition: 1s;
+
+}
+.phone_in_card{
+ font-size: 12px; 
+ padding-top: 0;
+ 
+}
+
+
+

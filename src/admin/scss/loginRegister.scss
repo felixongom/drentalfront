@@ -1,0 +1,124 @@
+body {
+  background: white;
+
+}
+.contact_form_wrapper{
+  padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(0deg, white, #f2f2f2, #999);  
+     form{
+        background: linear-gradient(45deg, rgba(1,1,1,.1), rgba(1,1,1,.2));
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0,0,0,.5);
+        width: 400px;
+
+
+        .user_icon{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px;
+          width: 100%;
+          height: 100px;
+          
+          div{
+            width: 100px;
+
+            .img{
+              width: 100%;
+              color: black;
+            }
+          }
+
+        }
+        p{
+          color: #000;
+          // font-weight: bold;
+          font-size: 13px;
+          padding-top: 5px;
+          .link{
+            font-size: 16px;
+            color: white;
+            padding-left: 5px;
+          }
+        }
+    }
+}
+
+.input_container{
+  background-color: transparent;
+  margin:10px 0px;
+  position: relative;
+  border-bottom: 1px solid white;
+  padding: 10px;
+  height: 30px;
+  
+
+  .input_children{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: ease .4s;
+    color: white;
+    font-size: 13px;
+
+
+  }
+  .label{
+    top:10px;
+    font-weight: 500;
+    text-transform: capitalize;
+    pointer-events: none;
+  
+  }
+  input{
+    font-weight: bold;
+  }
+
+  // input:focus + .label{
+  //   top:50px;
+  //   background-color: red;
+
+  // }
+
+}
+
+
+// styling for the side nave
+button{
+  background-color: var(--black);
+  width: 100%;
+  height: 40px;
+  margin: 10px 0px;
+  color: white;
+  font-weight: 400;
+}
+
+.loading_container{
+  height: 100vh;
+  background: rgba(0,0,0,.5);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon{
+      font-size: 30px;
+    }
+    
+  }
+}
