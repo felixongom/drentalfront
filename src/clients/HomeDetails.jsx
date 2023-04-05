@@ -101,10 +101,10 @@ function Details() {
                     {house?.address?.parish} parish/word
                   </h3>
                   <h3 className="capitalize text-sm  text-teal-700 ">
-                    {house.address.village} vilage/shell
+                    {house?.address?.village} vilage/shell
                   </h3>
                   <h3 className="capitalize text-sm  text-teal-700 ">
-                    {house.address.street} street
+                    {house?.address?.street} street
                   </h3>
                 </div>
               )}
@@ -127,7 +127,7 @@ function Details() {
                   </div>
                   <div>
                     {house &&
-                      house.phone.map((p, i) => (
+                      house?.phone?.map((p, i) => (
                         <div key={i}>
                           <h1 className="px-2 mt-1 bg-black text-white mx-1">
                             phone{1 + i}:: {p}
@@ -139,10 +139,10 @@ function Details() {
                     prices
                     <div>
                       {house &&
-                        house.prices.map((p, i) => (
+                        house?.prices?.map((p, i) => (
                           <div key={i}>
                             <h1 className="px-2 mt-1 bg-orange-800 capitalize shadow-md text-white mx-1">
-                              prices{1 + i}:: {p.price1} /per {p.per1}
+                              prices{1 + i}:: {p?.price1} /per {p?.per1}
                             </h1>
                           </div>
                         ))}
@@ -150,11 +150,11 @@ function Details() {
                   </div>
                   <div className="flex gap-6">
                     <div>
-                      {house.likes} {house.likes <= 1 ? "Like" : " Likes"}
+                      {house?.likes} {house?.likes <= 1 ? "Like" : " Likes"}
                     </div>
                     <div>
-                      {house.views ? house.views : 0}{" "}
-                      {house.views <= 1 ? "View" : " Views"}
+                      {house?.views ? house?.views : 0}{" "}
+                      {house?.views <= 1 ? "View" : " Views"}
                     </div>
                   </div>
                 </div>

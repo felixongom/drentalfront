@@ -15,6 +15,7 @@ export const ClientContext = ({ children }) => {
     // axios instans
 const _axios = axios.create({
     baseURL: 'http://localhost:5000',
+    timeout: 3000,
   });
 
 //   fatching all the houses from active and approved
@@ -22,7 +23,7 @@ useEffect(()=>{
     _axios.get('/api/house')
     .then(res=>setAlHouses(res.data))
     
-},[search, filter, likeView,_axios])
+},[search, filter, likeView, _axios])
 
 
 // adding likes and view
@@ -100,11 +101,10 @@ if(filter==='all'){
 
 }
 
-
+// console.log(allHouses);
     return (
         <Context.Provider
             value={{
-                name:'felix',
                 allHouses,
                 searchFunct,
                 search,

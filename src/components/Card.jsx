@@ -34,8 +34,8 @@ function Card({ house }) {
           </h3>
           <h3 className="text-gray-400">
             <span className="pr-1 text-sm ">ugx</span>
-            <span className="font-bold">{house.prices[0].price1} </span>/{" "}
-            <small className="pr-1 text-sm ">{house.prices[0].per1}</small>
+            <span className="font-bold">{house?.prices[0]?.price1} </span>/{" "}
+            <small className="pr-1 text-sm ">{house?.prices[0]?.per1}</small>
           </h3>
         </div>
         <div className=" addressBox text-gray-400 capitalize">

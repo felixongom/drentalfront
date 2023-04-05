@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import ClientNavbar from '../components/ClientNavbar'
-import img from '../assets/images/img.jpg' 
+import img from '../assets/images/home.png' 
 import  './scss/hero.scss'
 import Cards from '../components/Cards'
 import { useClientContext } from '../assets/js/ClientContext'
@@ -9,7 +9,7 @@ import ClientSearch from '../components/ClientSearch'
 import LoadingIndicator from '../components/LoadingIndicator'
 
 function Home() {
-  const {name, allHouses, serchResult,dataLength, toggleFilter, filter} = useClientContext()
+  const {allHouses, serchResult,dataLength, toggleFilter, filter} = useClientContext()
   const {bottomPaginater, pageData} = useStateContext()
 
   const [showSearchBar,setShowSearchBar] = useState(false)
@@ -31,16 +31,16 @@ function Home() {
       <ClientSearch showSearchBar={showSearchBar}/>
       <ClientNavbar toggleSerach={toggleSerach}/>
       <div className="">
-        <div className='hero_container'>
-          <div className='inner_container sm:block'>
+        <div className='hero_container pt-10'>
+          <div className='inner_container sm:block '>
             <div>
               <h1  className='font-bold hero_heading uppercase text-3xl max-w-2xl flex-wrap break-words'>
-                explore and find lodges in your area {name}</h1>        
-              <p className='text-white mt-8 text-lg'>Lfficia laboriosam excepturi i pariatur, quisquam eum beatae reprehenderit Voluptates?</p>
+                explore and find lodges in your area</h1>        
+              <p className='text-white mt-8 text-lg'>Don't go far locking for a lodge or hose for rent, just find them all here and connect to the owner as quickly as posible</p>
               <button className='w-40 mt-6 capitalize'>get started</button>
             </div>
             <div className='image_container'>
-            <img className='img' src={img} alt=""/>
+            <img className='img' src={img} alt="" width={500}/>
 
             </div>
 

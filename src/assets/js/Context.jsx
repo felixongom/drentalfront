@@ -49,12 +49,16 @@ let stoken = localStorage.getItem("sadmintoken");
 // axios instans
 const instance = axios.create({
     baseURL: 'http://localhost:5000',
-    headers: {'tokken':token}
+    headers: {'tokken':token},
+    timeout: 1000,
+
   });
 // axios instans
 const sinstance = axios.create({
     baseURL: 'http://localhost:5000',
-    headers: {'tokken':stoken}
+    headers: {'tokken':stoken},
+    timeout: 1000,
+
   });
   
   
@@ -91,7 +95,7 @@ useEffect(()=>{
   .then(res=>setsuperAllHouses(res.data))
 }, [update, sinstance])
 
-
+// console.log(superAllHouses);
 
 
 // setting house to active or inactive

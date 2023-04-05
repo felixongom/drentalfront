@@ -22,7 +22,7 @@ function Dashboard() {
     // faction to fetch houses
       instance.post(`/api/house/me`)
       .then(res=>setHouses(res.data))
-  },[deleted]) 
+  },[deleted, instance]) 
 
   // deleting house
   const deleteHouse = async(id)=>{
@@ -35,15 +35,16 @@ function Dashboard() {
     navigate(`/admin/houses-details/${id}`)
   }
 
-  // navigation to house update
+  // navigation to house update 
   const toHouseUpdate = (id)=>{
     navigate(`/admin/add-houses/${id}`)
   }
+  if(!houses) return <LoadingIndicator/>
 
   return (
     <div className="content">
       {/* {showSideBar && <SideNav admin={Admin}/>} */}
-        {!houses && <LoadingIndicator/>}
+        
       <div className="dashboard_body">
           <AdminNavbar navHeader={'My Houses'} />
           <AddHouseBtn/>

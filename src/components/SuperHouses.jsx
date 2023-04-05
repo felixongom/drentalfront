@@ -3,6 +3,7 @@ import { FaEye } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useStateContext } from "../assets/js/Context";
 import { useNavigate } from "react-router-dom";
+import LoadingIndicator from "./LoadingIndicator";
 
 const Superhouses = () => {
   const {
@@ -23,10 +24,11 @@ const Superhouses = () => {
   const pageDatas = pageData(filteredHouses, page, itemPerPage);
   const navigate = useNavigate();
 
-
-
+  
+  
   return (
     <div className="card_container customers">
+      {!superAllHouses && <LoadingIndicator/>}
       <table>
         <tr className="tableheading">
           <th>houses</th>
