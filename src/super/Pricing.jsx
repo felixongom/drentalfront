@@ -17,7 +17,7 @@ function Pricing() {
   useEffect(()=>{
     sinstance.get('/api/price')
     .then(res=>setPrice(res.data.price))
-  },[change])
+  },[change, sinstance])
 
   const sendPrice = async ()=>{
     if (price>0){
@@ -38,7 +38,7 @@ function Pricing() {
 
         <div className="card_container">
           <div action="">
-            <h1 className="font-bold capitalize">adding princing that customers pays in 30 days</h1>
+            <h1 className="font-bold text-sm capitalize">add amount customers pay in 30 days for their houses to be visible</h1>
             <div className=" mt-2 mb-3 bottom-2 ">
               <input value={price} onChange={(e)=>setPrice(e.target.value)} type="number" className="h-10 border-2 borde-orange" /> Per month <br />
             </div>

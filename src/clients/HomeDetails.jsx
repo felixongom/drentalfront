@@ -81,31 +81,53 @@ function Details() {
                 <div>
                   <h1 className="capitalize font-bold text-lg text-cyan-500">
                     {house?.name}{" "}
+                    {house?.type && 
                     <small className="bg-orange-500 px-2 rounded text-sm text-black ">
                       {house?.type}
                     </small>
+                    }
                   </h1>
+                  {house?.address?.region && 
                   <h3 className="capitalize font-bold">
                     {house?.address?.region} region
                   </h3>
+}
+{house?.address?.district &&
                   <h3 className="capitalize font text-orange-500">
                     {house?.address?.district} district
                   </h3>
+}
+{house?.address?.town &&
                   <h3 className="capitalize text-sm px-2 rounded-md bg-black  text-white italic">
                     {house?.address?.town} city/town
                   </h3>
+}
+
+{house?.address?.subcounty &&
                   <h3 className="capitalize text-sm font-bold text-gray-700">
                     {house?.address?.subcounty} subcounty
                   </h3>
+}
+
+
+{house?.address?.parish &&
                   <h3 className="capitalize text-sm font-bold text-gray-900 ">
                     {house?.address?.parish} parish/word
                   </h3>
+}
+
+{house?.address?.village &&
                   <h3 className="capitalize text-sm  text-teal-700 ">
                     {house?.address?.village} vilage/shell
                   </h3>
+}
+
+
+{house?.address?.street &&
                   <h3 className="capitalize text-sm  text-teal-700 ">
                     {house?.address?.street} street
                   </h3>
+}
                 </div>
               )}
 
@@ -115,8 +137,7 @@ function Details() {
                     service
                   </p>
                   <div>
-                    {/* <span>{house.services[0].service}</span> */}
-                    {house?.services?.map((service, i) => (
+                    {house?.services && house?.services?.map((service, i) => (
                       <div key={i} className="sevices" index={i}>
                         <FiActivity />
                         <div>
@@ -126,7 +147,7 @@ function Details() {
                     ))}
                   </div>
                   <div>
-                    {house &&
+                    {house && house?.phone &&
                       house?.phone?.map((p, i) => (
                         <div key={i}>
                           <h1 className="px-2 mt-1 bg-black text-white mx-1">
@@ -138,7 +159,7 @@ function Details() {
                   <div className="font-bold text-gray-300 capitalize  text-sm pt-5">
                     prices
                     <div>
-                      {house &&
+                      {house && house?.prices &&
                         house?.prices?.map((p, i) => (
                           <div key={i}>
                             <h1 className="px-2 mt-1 bg-orange-800 capitalize shadow-md text-white mx-1">

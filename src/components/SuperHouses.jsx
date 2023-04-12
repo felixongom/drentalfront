@@ -25,7 +25,6 @@ const Superhouses = () => {
   const navigate = useNavigate();
 
   
-  
   return (
     <div className="card_container customers">
       {!superAllHouses && <LoadingIndicator/>}
@@ -84,7 +83,7 @@ const Superhouses = () => {
 
               <td>
                 <small className="bg-orange-500 pr-2 pl-2 rounded text-black cursor-pointer">
-                  {item.amountpayed}
+                  {item.pay}
                 </small>
               </td>
               <td>

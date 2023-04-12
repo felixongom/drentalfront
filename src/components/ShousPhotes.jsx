@@ -1,14 +1,10 @@
 import { FiTrash } from "react-icons/fi";
 import { useStateContext } from "../assets/js/Context";
 
-function Shousephotos({ data }) {
-  const {instance} = useStateContext()
+function Shousephotos({ data, deletePhoto }) {
   if (data === null) return <div>Loding...</div>;
 
-  const deletePhoto = async(name) =>{
-      await instance.get(`/api/modify/image/`, {name})
-   
-    }
+
 
   return (
     <div className="card_container customers">

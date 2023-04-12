@@ -8,6 +8,7 @@ import { useStateContext } from '../assets/js/Context'
 import ClientSearch from '../components/ClientSearch'
 import LoadingIndicator from '../components/LoadingIndicator'
 
+
 function Home() {
   const {allHouses, serchResult,dataLength, toggleFilter, filter} = useClientContext()
   const {bottomPaginater, pageData} = useStateContext()

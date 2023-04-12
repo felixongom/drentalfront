@@ -16,8 +16,9 @@ function SideBar({admin}) {
         {admin.map((link, i) => (
           <div key={i} className="link_list"
           >
-            <NavLink to={`${link.path}`} 
-              className="path"
+            <NavLink  to={`${link.path}`} 
+            // className =
+              className={`path ${({isActive})=>isActive?'border':''}`}
               onClick={sideBarFalse}
               
               >

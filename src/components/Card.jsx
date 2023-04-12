@@ -2,6 +2,7 @@ import React from "react";
 import { FiThumbsUp, FiEye } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { useClientContext } from "../assets/js/ClientContext";
+import defaultImg from  '../assets/images/default.jpg'
 
 function Card({ house }) {
   const { addLikes } = useClientContext();
@@ -16,7 +17,7 @@ function Card({ house }) {
         <img
           onClick={() => navigate(`/detail/${house.id}`)}
           className="cursor-pointer"
-          src={house.images[0]}
+          src={house.images[0]?house.images[0]:defaultImg}
           alt=""
         />
       </div>

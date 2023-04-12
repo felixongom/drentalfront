@@ -13,21 +13,21 @@ function Dashboard() {
   const navigate = useNavigate()
   const {instance} = useStateContext()
   const [houses, setHouses] = useState([])
-  const [deleted, setDeleted] = useState('')
+  const [deleted, setDeleted] = useState(0)
 
 
  
   
   useEffect(()=>{
     // faction to fetch houses
-      instance.post(`/api/house/me`)
+      instance.post('/api/house/me')
       .then(res=>setHouses(res.data))
   },[deleted, instance]) 
 
   // deleting house
   const deleteHouse = async(id)=>{
-    const res = await instance.delete(`/api/house/delete/${id}`)
-    setDeleted(res.data)
+    await instance.delete(`/api/house/delete/${id}`)
+    setDeleted(deleted+1)
   } 
 
   // navigation to house details

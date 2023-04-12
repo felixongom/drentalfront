@@ -11,7 +11,7 @@ export const StateContext = ({ children }) => {
 
   const [search, setSearch] = useState('')
   const [update, setApprove] = useState(false) 
-  const [deleted, setDeleted] = useState(0)
+  const [deleted, setDeleted] = useState(true)
 
 
   
@@ -82,8 +82,9 @@ const sinstance = axios.create({
   useEffect(()=>{
     sinstance.get('/api/user')
     .then(res=>setUser(res.data))
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
     
-  },[deleted,sinstance])
+  },[deleted])
   
   //   ..............................................
   //   ..............................................
@@ -91,19 +92,23 @@ const sinstance = axios.create({
 
 // fetchng content to be used in the admin dasboard
 useEffect(()=>{
-  sinstance.get('/api/house/everything')
-  .then(res=>setsuperAllHouses(res.data))
-}, [update, sinstance])
+  async function fetchAllHouses(){
+   const res = await sinstance.get('/api/house/everything')
+   setsuperAllHouses(res.data)
+   
+  }
+  fetchAllHouses()
+}, [deleted])
 
-// console.log(superAllHouses);
 
 
 // setting house to active or inactive
 const approveHouse =(h)=>{
   sinstance.patch(`/api/modify/${h.id}/${h.approve}`)
   .then(res=>{
-    setApprove(!update)
+    setDeleted(!deleted)
     toast(res.data)
+    console.log(res);
   }) 
 }
 
@@ -113,6 +118,7 @@ const deleteHouse = (id)=>{
   sinstance.delete(`/api/house/delete/${id}`)
   .then(res=>{
     setApprove(!update)
+    setDeleted(!deleted)
     toast(res.data)
   })
 }
@@ -129,7 +135,7 @@ const deleteUser = async(id)=>{
   setDeleted(deleted+1)
 }
 
-// deleting user
+// activate user
 const activateUser = async(id)=>{
   const res = await sinstance.patch(`/api/user/active/${id}`)
   toast(res.data)
@@ -164,7 +170,7 @@ const activateUser = async(id)=>{
         approveHouse,
         deleteHouse,
         searchFuction,
-        search
+        search,
       }}
     >
       {children}

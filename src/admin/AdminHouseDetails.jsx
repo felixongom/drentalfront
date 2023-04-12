@@ -24,6 +24,19 @@ function AdminHouseDetails() {
     
   }, [Hid])
 
+    // deleting photes of the houses
+    const deletePhoto = async (name) => {
+      // indexOf()
+      const _name = name.slice(name.indexOf("/IMAGE") + 1);
+      const res = await sinstance.delete(`/api/modify/image/${Hid}/${_name}`);
+      if (res.status === 200) {
+        toast("deleted");
+        setDeleteNotifier(deleteNotifier + 1);
+      } else {
+        toast("tere was an error");
+      }
+    };
+
   
   return (
     <div className="content">
@@ -32,7 +45,7 @@ function AdminHouseDetails() {
       <div className="dashboard_body">
         <AdminNavbar navHeader={"Details"} />
         <ShouseData data={singleHouse}/>
-        <Shousephotos data={singleHouse?singleHouse.images:[]}/>
+        <Shousephotos deletePhoto ={deletePhoto} data={singleHouse?singleHouse.images:[]}/>
       </div>
     </div>
   );

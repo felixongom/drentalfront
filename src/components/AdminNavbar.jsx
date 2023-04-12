@@ -19,8 +19,7 @@ function AdminNavbar({ navHeader }) {
     }
     instance.get("/api/user/me")
     .then((res) => setAuthUser(res.data));
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [instance, navigate, token]);
 
   const { showSideBar } = useStateContext();
   const logMeOut = () => {
@@ -40,7 +39,7 @@ function AdminNavbar({ navHeader }) {
       </div>
 
       <div className="avater" onClick={() => navigate(`/admin/update-user`)}>
-        <button onClick={logMeOut} className="bg-cyan-500 text-sm h-8 px-3">
+        <button onClick={()=>logMeOut} className="bg-cyan-500 text-sm h-8 px-3">
           Logout
         </button>
 

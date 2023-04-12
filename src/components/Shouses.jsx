@@ -130,7 +130,7 @@ function Shouses({
           {pageDatas.map((item) => (
             <tr key={item.id}>
               <td className="customer_name_avater">
-                <img src={item.images[0]} alt="" />
+                <img src={item?.images[0]} alt="" />
               <td className="email">{item.name}</td>
               </td>
               <td>
@@ -171,7 +171,7 @@ function Shouses({
               </td>
               <td>
                 <small className="bg-teal-500 pr-2 pl-2 rounded text-black cursor-pointer">
-                {item.amountpayed}
+                {item.pay}
                 </small>
                 
               </td>
