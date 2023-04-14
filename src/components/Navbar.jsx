@@ -61,6 +61,7 @@ function Navbar({navHeader}) {
         </button>
 
         <img
+          onClick={()=>navigate(`/super/register`)}
           className="rounded-2xl"
           src={!authUser.avater ? user : authUser.avater}
           alt=""

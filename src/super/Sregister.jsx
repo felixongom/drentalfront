@@ -10,11 +10,12 @@ import photo from '../assets/images/photo.png'
 
 import { useStateContext } from "../assets/js/Context";
 import { Sadmin } from "../assets/js";
+import { useEffect } from "react";
 
 function SRegister() {
   const { showSideBar , sinstance} = useStateContext();
   const {id} = useParams()
-
+  
   // 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -23,7 +24,15 @@ function SRegister() {
   
   const [registeIndicator, setregisteIndicator] = useState(false)
   const [err, setError] = useState([])
+  
+  useEffect(()=>{
+    if(id){
+      sinstance.get("/api/user/me")
+      .then(res=>console.log(res.data))
 
+      
+    }
+  })
   // submitting the form
   const submitForm = async ()=>{
     let payload = {

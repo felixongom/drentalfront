@@ -46,6 +46,8 @@ function Pages() {
           <Route path="super/dashboard" element={<Sdasboard />} />  
           <Route path="super/users" element={<Susers />} />  
           <Route path="super/register" element={<Sregister />} />  
+          <Route path="super/register" element={<Sregister />} />  
+          <Route path="super/update/:id" element={<Sregister />} />  
           <Route path="super/user-detail/:id" element={<SuperUserDetails />} />  
           <Route path="super/houses" element={<Shouses/>} />  
           <Route path="super/house-details/:Hid/:Uid" element={<ShousesDetails/>} />  
