@@ -130,7 +130,7 @@ useEffect(()=>{
         
       }
   } 
-)}, [id])
+)}, [id, instance])
 
 
 // sending request if the params id exist
@@ -146,8 +146,8 @@ useEffect(()=>{
       
 
     }
+    setSending(false)
 
-    console.log(__res.data);
   if(__res.status===200){
     toast('Added successfully') 
     setSending(false)
@@ -267,9 +267,10 @@ useEffect(()=>{
               <small className="text-black-300 font-bold pb-2">Region</small>
               <br />
               <select className="mt-3 mb-3" 
+              value={region}
                 onChange={(e)=>setRegion(e.target.value)}
                 >
-                  <option >{region}</option>
+                  <option >Northern</option>
                   <option >Eastern</option>
                   <option >Western</option>
                   <option >Central</option>
@@ -376,7 +377,7 @@ useEffect(()=>{
                   onChange ={(e)=>setPrice1(e.target.value)}
                   className="border-black-200  border-b-2 pl-1 pr-1 outline-none"
                 />
-                <span>Par</span>
+                <span>/Per</span>
                 <input
                   type="text"
                   placeholder="Day"
@@ -421,7 +422,7 @@ useEffect(()=>{
                   setPer3
                   className="border-black-200  border-b-2 pl-1 pr-1 outline-none"
                 />
-                <span>Par</span>
+                <span>/Per</span>
                 <input
                   type="text"
                   placeholder="Manth"
@@ -443,7 +444,7 @@ useEffect(()=>{
                   onChange ={(e)=>setPrice4(e.target.value)}
                   className="border-black-200  border-b-2 pl-1 pr-1 outline-none"
                 />
-                <span>Par</span>
+                <span>/Per</span>
                 <input
                   type="text"
                   placeholder="3 months"
@@ -458,10 +459,19 @@ useEffect(()=>{
             </div>
           </div>
           <div className="ml-5">
-           <button 
-           onClick={sendData}
-           disabled ={sending?true:false}
-            className={`mr-4 curser-pointer pr-10 ${sending && 'bg-slate-500'} rounded-lg pl-10 border-collapse`}>{sending?'Sending. . . ':'Send'}</button>
+            {id? (
+              <button 
+              onClick={sendData}
+              disabled ={sending?true:false}
+               className={`mr-4 curser-pointer pr-10 ${sending && 'bg-slate-500'} rounded-lg pl-10 border-collapse`}>{sending?'Updating. . . ':'Update'}</button>
+
+            ):(
+              <button 
+              onClick={sendData}
+              disabled ={sending?true:false}
+               className={`mr-4 curser-pointer pr-10 ${sending && 'bg-slate-500'} rounded-lg pl-10 border-collapse`}>{sending?'Sending. . . ':'Send'}</button>
+
+            )}
           </div>
         </div>
       </div>

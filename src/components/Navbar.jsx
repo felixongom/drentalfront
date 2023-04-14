@@ -14,8 +14,8 @@ function Navbar({navHeader}) {
 
   const [authUser , setAuthUser] = useState({})
 
-  const token = localStorage.getItem('sadmintoken')
   useEffect(()=>{
+    const token = localStorage.getItem('sadmintoken')
     if(token===null){
       navigate('/super')
     }
@@ -24,7 +24,7 @@ function Navbar({navHeader}) {
 
     //eslint-disable-next-line react-hooks/exhaustive-deps
 
-  }, [navigate, sinstance, token])
+  }, [navigate, sinstance])
   
   const logMeOut =()=>{
     navigate('/super')

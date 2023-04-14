@@ -19,7 +19,7 @@ import SuperUserDetails from "../super/SuperUserDetails";
 // client
 import Home from "../clients/Home";
 import Details from "../clients/HomeDetails";
-import UpdateUser from "../admin/UpdateUser";
+// import UpdateUser from "../admin/UpdateUser";
 import NotFound from "../clients/scss/NotFound";
 
 

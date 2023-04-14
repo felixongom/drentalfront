@@ -106,6 +106,52 @@
  padding-top: 0;
  
 }
+.BookButton{
+right: 90px;
+cursor: pointer;
+}
+
+.darkeningModal{
+    z-index: 20;
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0, 0,.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .inputModal, .errorContainer{
+        width: 300px;
+        
+        div{
+            width: 100%;
+            margin-bottom: 10px;
+            input{
+                width: 100%;
+                padding: 5px 2px;
+            }
+        }
+    }
+
+}
+
+.setHouseHaveBook{
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    z-index: 60;
+    .booked{
+        width: 400px;
+    }
+    .bookedImg{
+        height: 50px;
+        width: 50px;
+    }
+}
 
 
 

@@ -5,7 +5,7 @@ import { useClientContext } from "../assets/js/ClientContext";
 import defaultImg from  '../assets/images/default.jpg'
 
 function Card({ house }) {
-  const { addLikes } = useClientContext();
+  const { addLikes, getHouseData } = useClientContext();
   const navigate = useNavigate();
   const { address } = house;
 
@@ -56,6 +56,9 @@ function Card({ house }) {
           </div>
           <small className="phone_in_card flex text-sm z-0 absolute right-0 px-2 bg-teal-600  text-white ">
             {house.phone[0]}
+          </small>
+          <small onClick={()=>getHouseData(house)} className="BookButton flex text-sm z-0 absolute px-2 bg-black  text-white ">
+            Book
           </small>
         </div>
       </div>

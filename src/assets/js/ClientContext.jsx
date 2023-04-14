@@ -1,5 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from ".";
+import { useMemo } from "react";
+import toast from "react-hot-toast";
 const Context = createContext();
 
 export const ClientContext = ({ children }) => {
@@ -12,18 +15,21 @@ export const ClientContext = ({ children }) => {
         setFilter(text)
     }
 
+const headers =useMemo(()=>({'tokken':localStorage.getItem('client')}), []) 
     // axios instans
 const _axios = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: BASE_URL,
     timeout: 3000,
+    headers
+
   });
 
 //   fatching all the houses from active and approved
 useEffect(()=>{
-    _axios.get('/api/house')
+    axios.get(`${BASE_URL}/api/house`, {headers})
     .then(res=>setAlHouses(res.data))
     
-},[search, filter, likeView, _axios])
+},[search, filter, likeView, headers])
 
 
 // adding likes and view
@@ -89,7 +95,7 @@ const searchFunct =(text)=>{
     setSearh(text)
 }
 
-const __serchResult = allHouses.filter(h=> h.address.town.includes(search) || h.address.district.includes(search) )
+const __serchResult = allHouses.filter(h=> h.address.town.includes(search) || h.address.district.includes(search) || h.name.includes(search))
 
 // lets filter the search result by type
 let serchResult =[]
@@ -101,10 +107,197 @@ if(filter==='all'){
 
 }
 
-// console.log(allHouses);
-    return (
-        <Context.Provider
-            value={{
+// .............................................
+// .............................................
+// handling booking
+const [loginRegisterSwitching,setLoginRegisterswitching] = useState(true)
+const [alreadyLogedIn,setAlreadyLogedIn] = useState(false)
+const [showModal,setShowModal] = useState(false)
+const [houseBeingBooked,setHouseBeingBooked] = useState({})
+
+// collecting the reister form field
+const[name, setName] = useState('')
+const[email, setEmail] = useState('')
+const[phone, setPhone] = useState('')
+const[password, setPassword] = useState('')
+const [authIndicator, setAuthIndicator] = useState(false)
+const [registerError, setregisterError] = useState([])
+const [authUser, setAuthUser] =useState(null)
+const[anotherNumber, setAnotherNumber]=useState('')
+const[bookingPrice, setBookingPrice]=useState({})
+
+const [selectedPrice, setSelectedPrice] =useState(0)
+const [bookingError, setBookingError] =useState('')
+const [bookingIndecator, setBookingIndicator] =useState(false)
+const [houseHaveBook, setHouseHaveBook] = useState(null)
+
+const [showMyHouses, setShowMyHouses] =useState(false)
+
+// 
+
+// collecting the house
+
+
+const switchLoginRegisterForm = ()=>{
+    setLoginRegisterswitching(!loginRegisterSwitching)
+}
+// collecting house data
+const getHouseData = (house)=>{
+    const clientToken = localStorage.getItem('client')
+    if(clientToken!==null){
+        setAlreadyLogedIn(true)
+        setBookingPrice(house.prices[0])
+    }
+    setShowModal(true)
+    setHouseBeingBooked(house)
+}
+console.log(houseBeingBooked);
+// showing maodal 
+const hideModal = (house)=>{
+    setShowModal(false)
+    setAlreadyLogedIn(false)
+   
+    console.log(house);
+}
+
+// showing maodal 
+const getStarted = ()=>{
+    setShowModal(true)   
+}
+
+
+// hondling onchang of registration
+const onChangeName = (name)=>{
+    setName(name)
+}
+const onChangeEmail = (email)=>{
+    setEmail(email)
+}
+const onChangePhone = (phone)=>{
+    setPhone(phone)
+}
+
+const onChangePassword = (password)=>{
+    setPassword(password)
+}
+const registerUser = async ()=>{
+    setAuthIndicator(!authIndicator)
+    const payload = {
+        name,email, password, phone,
+        usertype:'client'
+    }
+    
+    const res = await _axios.post('/api/user/register', payload)
+    console.log(res);
+    setAuthIndicator(!authIndicator)
+    if (res.data.length){
+        setregisterError(res.data)
+    }else{
+        setLoginRegisterswitching(true)
+    }
+    
+    
+}
+// .............................................
+const loginUser = async ()=>{
+    setAuthIndicator(!authIndicator)
+    const payload = {
+        email,
+        password,
+        usertype:'client'
+    }
+    
+    const res = await _axios.post('/api/user/login', payload)
+
+    setAuthIndicator(!authIndicator)
+    if (res.data.messege){
+        setregisterError([res.data.messege])
+    }else{
+        setLoginRegisterswitching(true)
+        setregisterError([])
+        setShowModal(false)
+        setAlreadyLogedIn(true)
+       
+        // set token in local storage
+        localStorage.setItem('client', res.data)
+        setAnotherNumber(authUser.phone)
+        
+    }
+    
+}
+
+console.log(authUser);
+console.log(anotherNumber);
+
+
+// get the authenticated client use 
+
+useEffect(()=>{
+    axios.get(`${BASE_URL}/api/user/me`, {headers})
+    .then(res=>{
+        setAuthUser(res.data)
+        setAnotherNumber(res.data.phone)
+    })
+
+
+
+},[headers])
+// console.log(authUser);
+
+
+// sending the actual booking
+const selectIndex =(price, i)=>{
+    setSelectedPrice(i)
+    console.log(price, i);
+    setBookingPrice(price)
+
+
+}
+
+// getting another number
+const onChangeAnotherNumber =(number)=>{
+    setAnotherNumber(number)
+}
+
+//details for booking the house that will be sent to the server
+const bookSendTheBooking = async ()=>{
+    setBookingIndicator(true)
+    const payload = {
+        houseId:houseBeingBooked.id,
+        bookeeId:authUser._id,
+        bookeePhone:anotherNumber,
+        price:bookingPrice
+
+        
+    }
+
+    const res = await axios.post(`${BASE_URL}/api/booking`, payload, {headers})
+    console.log(res.data);
+    if(res.data.error){
+        setBookingError(res.data.error)
+        setBookingIndicator(false)
+        toast('failed')
+        
+    }
+    setBookingIndicator(false)
+    toast('Succeeded')
+    
+}
+
+// find all the houses booked
+useEffect(()=>{
+    axios.get(`${BASE_URL}/api/booking/me`, {headers})
+    .then(res =>setHouseHaveBook(res.data))  
+},[headers])
+
+const hideMyhouses =()=>{
+    setShowMyHouses(!showMyHouses)
+}
+// .............................................
+// .............................................
+return (
+    <Context.Provider
+    value={{
                 allHouses,
                 searchFunct,
                 search,
@@ -115,7 +308,45 @@ if(filter==='all'){
                 filter,
 
                 addViews,
-                addLikes
+                addLikes,
+
+                // toggling modles
+                loginRegisterSwitching,
+                alreadyLogedIn,
+                switchLoginRegisterForm,
+                getHouseData,
+                showModal, 
+                hideModal,
+                getStarted,
+                houseBeingBooked,
+                // 
+                name,
+                email,
+                phone,
+                password,
+                onChangeName,
+                onChangeEmail,
+                onChangePhone,
+                onChangePassword,
+                registerUser, 
+                registerError,
+                // 
+                loginUser,
+
+                // passong house deteils
+                housePrices:houseBeingBooked?houseBeingBooked.prices:[],
+                selectIndex,
+                selectedPrice,
+                onChangeAnotherNumber,
+                anotherNumber,
+                bookSendTheBooking,
+                bookingError,
+                bookingIndecator,
+                houseHaveBook,
+
+                hideMyhouses,
+                showMyHouses
+
         }}
         >
             {children}

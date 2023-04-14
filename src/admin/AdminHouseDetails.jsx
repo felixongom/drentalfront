@@ -6,11 +6,14 @@ import AdminNavbar from "../components/AdminNavbar";
 import ShouseData from "../components/ShouseData";
 import Shousephotos from "../components/ShousPhotes";
 import LoadingIndicator from '../components/LoadingIndicator'
+import toast from "react-hot-toast";
 
 function AdminHouseDetails() {
   const {sinstance } = useStateContext();
 
   const [singleHouse, setsingleHouse] = useState(null) 
+  const [deleteNotifier, setDeleteNotifier] = useState(0);
+
   
   
   const {Hid} = useParams()
@@ -22,7 +25,7 @@ function AdminHouseDetails() {
     .then(res=>setsingleHouse(res.data))
     
     
-  }, [Hid])
+  }, [Hid, sinstance])
 
     // deleting photes of the houses
     const deletePhoto = async (name) => {

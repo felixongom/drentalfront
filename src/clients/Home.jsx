@@ -7,11 +7,23 @@ import { useClientContext } from '../assets/js/ClientContext'
 import { useStateContext } from '../assets/js/Context'
 import ClientSearch from '../components/ClientSearch'
 import LoadingIndicator from '../components/LoadingIndicator'
+import LoginRegisterModal from '../components/LoginRegisterModal'
+import BookingModel from '../components/BookingModel'
+import HouseHaveBook from '../components/HouseHaveBook'
 
 
 function Home() {
-  const {allHouses, serchResult,dataLength, toggleFilter, filter} = useClientContext()
-  const {bottomPaginater, pageData} = useStateContext()
+  const {allHouses, 
+    serchResult,
+    dataLength, 
+    toggleFilter, 
+    filter,
+    showModal,
+    alreadyLogedIn,
+    getStarted,
+    showMyHouses
+  } = useClientContext()
+  const {bottomPaginater, pageData, } = useStateContext()
 
   const [showSearchBar,setShowSearchBar] = useState(false)
   const [page, setPage] = useState(1)
@@ -24,10 +36,12 @@ function Home() {
   const toggleSerach = ()=>{
     setShowSearchBar(!showSearchBar)
   }
-
   
   return (
     <div>
+      {showMyHouses && <HouseHaveBook/>}
+      {showModal && !alreadyLogedIn && <LoginRegisterModal/>}
+      {alreadyLogedIn && <BookingModel/>}
       {!serchResult && <LoadingIndicator/>}
       <ClientSearch showSearchBar={showSearchBar}/>
       <ClientNavbar toggleSerach={toggleSerach}/>
@@ -38,7 +52,7 @@ function Home() {
               <h1  className='font-bold hero_heading uppercase text-3xl max-w-2xl flex-wrap break-words'>
                 explore and find lodges in your area</h1>        
               <p className='text-white mt-8 text-lg'>Don't go far locking for a lodge or hose for rent, just find them all here and connect to the owner as quickly as posible</p>
-              <button className='w-40 mt-6 capitalize'>get started</button>
+              <button onClick={()=>getStarted()} className='w-40 mt-6 capitalize'>get started</button>
             </div>
             <div className='image_container'>
             <img className='img' src={img} alt="" width={500}/>

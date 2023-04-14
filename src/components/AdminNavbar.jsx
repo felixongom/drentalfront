@@ -26,6 +26,7 @@ function AdminNavbar({ navHeader }) {
     localStorage.removeItem("admintoken");
     navigate("/admin");
   };
+
   return (
     <div className="navbar">
       <div className="toggle_icon">
@@ -38,14 +39,14 @@ function AdminNavbar({ navHeader }) {
         {showSideBar && <h3>{navHeader}</h3>}
       </div>
 
-      <div className="avater" onClick={() => navigate(`/admin/update-user`)}>
-        <button onClick={()=>logMeOut} className="bg-cyan-500 text-sm h-8 px-3">
+      <div className="avater">
+        <button onClick={()=>logMeOut()} className="bg-cyan-500 text-sm h-8 px-3">
           Logout
         </button>
 
         <img
           className="rounded-2xl"
-          src={!authUser ? avater : authUser.avater}
+          src={!authUser.avater? avater : authUser.avater}
           alt=""
           width={60}
         />

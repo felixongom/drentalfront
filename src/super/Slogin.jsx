@@ -47,7 +47,7 @@ function Slogin() {
         setError('Incorrect email or password')
         setloginIndicator(false)
       }
-    
+    console.log(res.data);
      
   }
 

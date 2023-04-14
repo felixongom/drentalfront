@@ -1,10 +1,12 @@
 import {BiHomeAlt, BiUser, BiAdjust, BiChart, BiRegistered} from 'react-icons/bi'
 import axios from 'axios';
+export const BASE_URL = 'http://localhost:5000'
 
 // Set config defaults when creating the instance
 export const axiosClient = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: BASE_URL
   });
+
 
 
 

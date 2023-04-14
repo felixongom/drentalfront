@@ -17,7 +17,6 @@ function Scustommers() {
   let numPerPage =8
   const bpage = bottomPaginater(users.length, numPerPage) 
   const __users = pageData(users,page, numPerPage )
-  // console.log(users[0]);
 
 if(!users)return <LoadingIndicator/>
 

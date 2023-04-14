@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from ".";
+import { useMemo } from "react";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
@@ -13,7 +15,9 @@ export const StateContext = ({ children }) => {
   const [update, setApprove] = useState(false) 
   const [deleted, setDeleted] = useState(true)
 
-
+  
+  
+  
   
   // toggling sidebar
   const toggleSideBar = () => {
@@ -36,26 +40,27 @@ export const StateContext = ({ children }) => {
     }, [screenSize]);
     
     // ..................................................................
-  // hiding sidebar on small screen on click of any sidebar link
-  const sideBarFalse = () => {
-    if (screenSize <= 760) {
+    // hiding sidebar on small screen on click of any sidebar link
+    const sideBarFalse = () => {
+      if (screenSize <= 760) {
         setShowSideBar(false);
-    }   
-  };
+      }   
+    };
     // .............................................
     
-let token = localStorage.getItem("admintoken");
-let stoken = localStorage.getItem("sadmintoken");
-// axios instans
+    const headers =useMemo(()=>({'tokken':localStorage.getItem('sadmintoken')}), []) 
+    let token = localStorage.getItem("admintoken");
+    let stoken = localStorage.getItem("sadmintoken");
+    // axios instans
 const instance = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: BASE_URL,
     headers: {'tokken':token},
-    timeout: 1000,
+    timeout: 1000,   
 
   });
 // axios instans
 const sinstance = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: BASE_URL,
     headers: {'tokken':stoken},
     timeout: 1000,
 
@@ -80,25 +85,22 @@ const sinstance = axios.create({
 
   
   useEffect(()=>{
-    sinstance.get('/api/user')
+    axios.get(`${BASE_URL}/api/user`, {headers})
     .then(res=>setUser(res.data))
     // eslint-disable-next-line  react-hooks/exhaustive-deps
     
-  },[deleted])
+  },[deleted, headers])
   
   //   ..............................................
   //   ..............................................
   //   ..............................................
-
-// fetchng content to be used in the admin dasboard
-useEffect(()=>{
-  async function fetchAllHouses(){
-   const res = await sinstance.get('/api/house/everything')
-   setsuperAllHouses(res.data)
-   
-  }
-  fetchAllHouses()
-}, [deleted])
+  
+  // fetchng content to be used in the admin dasboard
+  useEffect(()=>{
+    axios.get(`${BASE_URL}/api/house/everything`, {headers})
+    .then(res=>setsuperAllHouses(res.data)) 
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
+}, [deleted, headers]) 
 
 
 
