@@ -11,28 +11,38 @@ import photo from '../assets/images/photo.png'
 import { useStateContext } from "../assets/js/Context";
 import { Sadmin } from "../assets/js";
 import { useEffect } from "react";
+import axios from "axios";
+import { BASE_URL } from "../assets/js";
 
 function SRegister() {
-  const { showSideBar , sinstance} = useStateContext();
+  const { showSideBar , sinstance, headers} = useStateContext();
   const {id} = useParams()
+
   
   // 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
+  const [Uid, setUid] = useState('')
+  const [avater, setAvater] = useState('')
   
   const [registeIndicator, setregisteIndicator] = useState(false)
   const [err, setError] = useState([])
   
   useEffect(()=>{
     if(id){
-      sinstance.get("/api/user/me")
-      .then(res=>console.log(res.data))
-
-      
+      axios.get(`${BASE_URL}/api/user/me`, {headers})
+      .then(res=>{
+        console.log(res.data);
+        let data = res.data
+        setName(data.name)
+        setEmail(data.email)
+        setPhone(data.phone)
+        setUid(data._id)
+      })
     }
-  })
+  }, [id, headers])
   // submitting the form
   const submitForm = async ()=>{
     let payload = {
@@ -46,7 +56,7 @@ function SRegister() {
       res = await sinstance.post("/api/user/register", payload);
       
     }else{
-      res = await sinstance.patch(`/api/user/admin/${id}`, payload);
+      res = await sinstance.patch(`/api/user/admin/${Uid}`, payload);
 
     }
     
@@ -62,6 +72,7 @@ function SRegister() {
       id?toast('updatea'):toast('registered')
       
       if(res.status !==200){
+        setregisteIndicator(false);
         setError(res.data);
         
       }
@@ -71,6 +82,23 @@ function SRegister() {
     setregisteIndicator(false);
   }
   
+  // ading profile picture
+  const uploadAvater = async()=>{
+    const fd = new FormData()
+    fd.append('avater', avater[0])
+    console.log(avater[0]);
+
+
+
+    const res = await axios.post(`${BASE_URL}/api/user/avater`, fd, {headers})
+    if(res.data ==='sent'){
+      toast('Successfull')
+    }else{
+      toast('Please choose an image')
+      
+    }
+
+  }
 
   return (
     <div className="content">
@@ -94,23 +122,24 @@ function SRegister() {
               <div>
                 <input value={phone} onChange = {(e)=>setPhone(e.target.value)}  placeholder="phone" />
               </div>
+              {!id && 
               <div>
                 <input  value={password} onChange = {(e)=>setPassword(e.target.value)} placeholder="password" />
               </div>
+              }
               <button  onClick={()=>submitForm()} type="button">{registeIndicator?'. . .':'Send'}</button>
             </form>
           </div>
         </form>
-        {/* <div className="card_container"> */}
           <div className="uploade_photo_container">
             <h3 className="heading">upload user image</h3>
             <div className="upload_userImage">
               <img src={photo} alt=""className='stackimageinput'/>
-              <input type='file' className='stackimageinput'/>
+              <input onChange={(e)=>setAvater(e.target.files)} type='file' className='stackimageinput'/>
             </div>
             
-          </div>
-        {/* </div> */}
+            <button onClick={()=>uploadAvater()} className="addUserPhoto">{!id?'Add user image':'change user image'}</button>
+        </div>
       </div>
     </div>
   );

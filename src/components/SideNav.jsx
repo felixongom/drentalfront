@@ -1,15 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { CiDark } from "react-icons/ci";
+import {FaTimes} from "react-icons/fa";
 import {useStateContext} from '../assets/js/Context'
 
 function SideBar({admin}) {
-  const {sideBarFalse} = useStateContext()
+  const {sideBarFalse, toggleSideBar} = useStateContext()
  
   return (
     <div className="sidebar_container">
+      
       <div className="fixed_sidebar">
-        <div className="barner">
+        <div className="barner relative">
+        <div onClick={()=>toggleSideBar()} className="bg-cyan-500 cursor-pointer absolute rounded-full top-1 right-1">
+          <FaTimes/>
+        </div>
           <CiDark className="barner_icon" />
           <div className="barner_text">D'RENTALS</div>
         </div>
@@ -28,6 +33,7 @@ function SideBar({admin}) {
           </div>
         ))}
       </div>
+      
     </div>
   );
 }

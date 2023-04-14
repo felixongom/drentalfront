@@ -4,8 +4,12 @@ import { useClientContext } from "../assets/js/ClientContext";
 function HouseHaveBook() {
   const { houseHaveBook,
 hideMyhouses } = useClientContext();
-  console.log(houseHaveBook);
-  return (
+const monthNames = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"
+];
+
+
+return (
     <div onClick={()=>hideMyhouses()} className="setHouseHaveBook bg-white rounded-lg p-3 shadow-2xl">
       <small className="font-semibold text-green-400  ">
         Houses i have booked
@@ -20,11 +24,10 @@ hideMyhouses } = useClientContext();
             <h2 className="font-bold">{book.booking.price}</h2>
             <div  className="ml-2">/per</div>
             <h2  className="font-bold flex ml-2" >{book.booking.duration}</h2>
-
         </div>
         <small className="ml-3 px-5 py-0 bg-orange-600 h-5 rounded-2xl font-semibold">
             {new Date(book.booking.createdAt).getFullYear()} /
-            {new Date(book.booking.createdAt).getMonth()} /
+            {monthNames[new Date(book.booking.createdAt).getMonth()]} /
             {new Date(book.booking.createdAt).getDay()}
         </small>
       </div>

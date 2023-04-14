@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import Shouses from '../components/Shouses'
+import { Link } from 'react-router-dom'
 
 import { useStateContext } from '../assets/js/Context'
 import AdminNavbar from '../components/AdminNavbar'
@@ -44,9 +45,10 @@ function Dashboard() {
   return (
     <div className="content">
       {/* {showSideBar && <SideNav admin={Admin}/>} */}
-        
       <div className="dashboard_body">
           <AdminNavbar navHeader={'My Houses'} />
+          <br />
+          <Link to={'/admin/bookings'} className='bg-blue-400 py-1 px-3 ml-10 font-semibold'>Bookings</Link> 
           <AddHouseBtn/>
           <Shouses data={houses}  toHouseUpdate={toHouseUpdate} toHouseDetails={toHouseDetails} deleteHouse={deleteHouse}/> 
       </div>

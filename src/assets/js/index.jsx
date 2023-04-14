@@ -1,4 +1,5 @@
 import {BiHomeAlt, BiUser, BiAdjust, BiChart, BiRegistered} from 'react-icons/bi'
+import {FaMoneyBill} from 'react-icons/fa'
 import axios from 'axios';
 export const BASE_URL = 'http://localhost:5000'
 
@@ -26,6 +27,11 @@ export const Sadmin = [
         name:"Houses",
         icon:<BiHomeAlt/>,
         path:'/super/houses'
+    },
+    {
+        name:"Bookings",
+        icon:<FaMoneyBill/>,
+        path:'/super/bookings'
     },
     {
         name:"Register",

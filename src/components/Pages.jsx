@@ -7,6 +7,7 @@ import Register from "../admin/Register";
 import Dashboard from "../admin/Dashboard";
 import AddHouses from "../admin/AddHouses";
 import AdminHouseDetails from "../admin/AdminHouseDetails";
+import ABookings from "../admin/ABooking";
 // super admin
 import Sdasboard from "../super/Sdasboard";
 import Slogin from "../super/Slogin";
@@ -16,6 +17,7 @@ import Shouses from "../super/Shouses";
 import ShousesDetails from "../super/ShouseDetails";
 import Pricing from "../super/Pricing";
 import SuperUserDetails from "../super/SuperUserDetails";
+import SBookings from '../super/SBookins'
 // client
 import Home from "../clients/Home";
 import Details from "../clients/HomeDetails";
@@ -37,6 +39,7 @@ function Pages() {
           <Route path="/admin/register" element={<Register />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path ='/admin/add-houses' element={<AddHouses/>}/>      
+          <Route path ='/admin/bookings' element={<ABookings/>}/>      
           <Route path ='/admin/add-houses/:id' element={<AddHouses/>}/>      
           <Route path ='/admin/houses-details/:Hid' element={<AdminHouseDetails/>}/>      
           <Route path ='/admin/update-user' element={<SuperUserDetails/>}/>      
@@ -50,6 +53,7 @@ function Pages() {
           <Route path="super/update/:id" element={<Sregister />} />  
           <Route path="super/user-detail/:id" element={<SuperUserDetails />} />  
           <Route path="super/houses" element={<Shouses/>} />  
+          <Route path="super/bookings" element={<SBookings/>} />  
           <Route path="super/house-details/:Hid/:Uid" element={<ShousesDetails/>} />  
           <Route path="super/pricing" element={<Pricing/>} />  
           <Route path="*" element={<NotFound/>} />  

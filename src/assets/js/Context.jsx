@@ -49,8 +49,10 @@ export const StateContext = ({ children }) => {
     // .............................................
     
     const headers =useMemo(()=>({'tokken':localStorage.getItem('sadmintoken')}), []) 
+    const Aheaders =useMemo(()=>({'tokken':localStorage.getItem('admintoken')}), []) 
     let token = localStorage.getItem("admintoken");
     let stoken = localStorage.getItem("sadmintoken");
+
     // axios instans
 const instance = axios.create({
     baseURL: BASE_URL,
@@ -173,11 +175,14 @@ const activateUser = async(id)=>{
         deleteHouse,
         searchFuction,
         search,
+        headers,
+        Aheaders
       }}
     >
       {children}
     </Context.Provider>
   );
 };
+
 
 export const useStateContext = () => useContext(Context);
