@@ -15,6 +15,7 @@ import HouseHaveBook from '../components/HouseHaveBook'
 function Home() {
   const {allHouses, 
     serchResult,
+    latestResult,
     dataLength, 
     toggleFilter, 
     filter,
@@ -50,7 +51,7 @@ function Home() {
           <div className='inner_container sm:block '>
             <div>
               <h1  className='font-bold hero_heading uppercase text-3xl max-w-2xl flex-wrap break-words'>
-                explore and find lodges in your area</h1>        
+                explore and find lodges & rentals in your area</h1>        
               <p className='text-white mt-8 text-lg'>Don't go far locking for a lodge or hose for rent, just find them all here and connect to the owner as quickly as posible</p>
               <button onClick={()=>getStarted()} className='w-40 mt-6 capitalize'>get started</button>
             </div>
@@ -64,15 +65,15 @@ function Home() {
       
       </div>
       <h2 className='ml-5 mr-5 ml-30 sm:p-10 lg:ml-20 mt-20 font-bold text-gray-600'>Latest</h2>
-    <Cards allHouses={allHouses.slice(0,3)}/>
-    <h1 className='ml-5 mr-5 lg:ml-20 mt-20 font-bold text-orange-600'>{allHouses.length<9?'0'+dataLength.toString():allHouses.length} Availables Results</h1>
+    <Cards allHouses={latestResult}/>
+    <h1 className='ml-5 mr-5 lg:ml-20 mt-20 font-bold text-orange-600'>{latestResult.length<9?'0'+dataLength.toString():allHouses.length} Availables Results</h1>
     <div className='flex justify-start  ml-5 mr-5 lg:ml-20 mt-20 font-bold' style={{width:300}}>
       {['all', 'lodge', 'rental'].map(item=>(
         <button key={item} onClick={ ()=>toggleFilter(item) } className={`bg-gray-300 ${item===filter?'bg-orange-600 font-bold':''} capitalize h-8 text-sm`}>{item}</button>
 
       ))}
     </div>
-    <Cards allHouses={__allHouses}/>
+    <Cards allHouses={__allHouses.reverse()}/>
     <div className="table_pagination ml-5 mr-5 lg:ml-20">
         <div className="page_container flex">
           {pages.map((pages) => (

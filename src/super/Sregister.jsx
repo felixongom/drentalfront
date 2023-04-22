@@ -51,7 +51,6 @@ function SRegister() {
     setregisteIndicator(true);
     
     let res;
-    console.log(id);
     if(id===undefined){
       res = await sinstance.post("/api/user/register", payload);
       

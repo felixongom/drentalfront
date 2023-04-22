@@ -11,7 +11,7 @@ function AdminNavbar({ navHeader }) {
 
   const [authUser, setAuthUser] = useState({});
 
-  const token = localStorage.getItem("admintoken");
+  const token = sessionStorage.getItem("admintoken");
 
   useEffect(() => {
     if (token === null) {
@@ -23,7 +23,7 @@ function AdminNavbar({ navHeader }) {
 
   const { showSideBar } = useStateContext();
   const logMeOut = () => {
-    localStorage.removeItem("admintoken");
+    sessionStorage.removeItem("admintoken");
     navigate("/admin");
   };
 

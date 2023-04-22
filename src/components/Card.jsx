@@ -1,5 +1,5 @@
 import React from "react";
-import { FiThumbsUp, FiEye } from "react-icons/fi";
+import { FiThumbsUp, FiEye, FiPhone } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { useClientContext } from "../assets/js/ClientContext";
 import defaultImg from  '../assets/images/default.jpg'
@@ -9,10 +9,11 @@ function Card({ house }) {
   const navigate = useNavigate();
   const { address } = house;
 
+
   if (house.length > 0) return <div className="text-gray-300">loding. . .</div>;
 
   return (
-    <div className="card shadow-md  hover:scale-110 transition-all rounded-md overflow-hidden">
+    <div className="card shadow-md  hover:scale-10 transition-all rounded-md overflow-hidden">
       <div className="w-full coardImageContaioner">
         <img
           onClick={() => navigate(`/detail/${house.id}`)}
@@ -55,9 +56,9 @@ function Card({ house }) {
             <FiEye /> {house.views} {house.views <= 1 ? "View" : " Views"}
           </div>
           <small className="phone_in_card flex text-sm z-0 absolute right-0 px-2 bg-teal-600  text-white ">
-            {house.phone[0]}
+          <FiPhone/>  {house.phone[0]}
           </small>
-          <small onClick={()=>getHouseData(house)} className="BookButton flex text-sm z-0 absolute px-2 bg-black  text-white ">
+          <small onClick={()=>getHouseData(house)} className="BookButton mr-5 flex text-sm z-0 absolute px-2 bg-black  text-white ">
             Book
           </small>
         </div>

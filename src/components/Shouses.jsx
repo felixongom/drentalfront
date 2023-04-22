@@ -4,6 +4,7 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { toast } from "react-hot-toast";
 import { useStateContext } from "../assets/js/Context";
+import Info from "./Info";
 
 function Shouses({
   data,
@@ -12,9 +13,9 @@ function Shouses({
   toHouseDetails, 
 }) {
 
-
+  
   // const {instance} = useStateContext()
-  const { bottomPaginater, pageData, instance } = useStateContext();
+  const { bottomPaginater, pageData, instance,deleteHouseId } = useStateContext();
   const itemPerPage = 12;
   const paginate = bottomPaginater(data.length, itemPerPage);
   const [page, setPage] = useState(1);
@@ -25,8 +26,8 @@ function Shouses({
   const [id, setId] = useState(null)// toggling modal form
   const [exprice, setExprice] = useState(0)
   const pageDatas = pageData(data, page, itemPerPage);
-
-//  feting prices
+  
+  //  feting prices
  useEffect(()=>{
   instance.get('/api/price')
   .then(res=>setExprice(res.data.price))
@@ -85,20 +86,25 @@ function Shouses({
     }
   }
 
-  
+  const councelModal = ()=>{
+    setDisplayModal(false)
+    setId('')
+  }
+
+  let _payment = payment===''?0:payment
 
   return (
     <div className="card_container customers">
       {/* payment madal form */}
-      
+      {deleteHouseId !=="" &&<Info/>}
       {displyModal && (
       <div className="payment_modal_container">
         <div className="modal_form shadow-lg ">
           
-          <div className="w-full text-cyan-400 capitalize">valid for {daysGiven()}</div>
+          <div className="w-full text-cyan-400 capitalize">will be visible for more {daysGiven()}</div>
           <div className="w-full flex h-8 align-middle mt-2">
             <input
-              className="outline-none border-2  "
+              className="outline-none border-2"
               type="number"
               value={payment}
               onChange={(e) => setPatment(e.target.value)}
@@ -108,7 +114,7 @@ function Shouses({
           </div>
           <div className="mt-3">
 
-          <small onClick={()=>setDisplayModal(false)} className="bg-black cursor-pointer  text-sm px-3 text-white mr-10 capitalize  rounded-md">close</small>
+          <small onClick={()=>councelModal()} className="bg-black cursor-pointer  text-sm px-3 text-white mr-10 capitalize  rounded-md">close</small>
           </div>
         </div>
       </div>)}
@@ -141,7 +147,7 @@ function Shouses({
 
               <td>{item.added}</td>
               <td>
-                {item.timeleft!=='0 sec' ? (
+                {item.active===true ? (
                   <small className="bg-orange-500 rounded-md text-black cursor-pointer pl-2 pr-2">
                     {item.timeleft} left
                   </small>
@@ -171,12 +177,12 @@ function Shouses({
               </td>
               <td>
                 <small className="bg-teal-500 pr-2 pl-2 rounded text-black cursor-pointer">
-                {item.pay}
+                {id===item.id?parseInt(_payment)+ parseInt(item.pay): parseInt(item.pay)}
                 </small>
                 
               </td>
               <td id="actions">
-                <FaEye
+                <FaEye 
                   onClick={() => toHouseDetails(item.id)}
                   className="text-teal-500 cursor-pointer"
                   title="Veiw"

@@ -21,7 +21,7 @@ function BookingModel() {
     <div className="darkeningModal">
       <div
         onClick={() => hideModal()}
-        className="absolute top-20 left-10 px-4 py-1 bg-red-700 text-white"
+        className="absolute top-20 left-10 px-4 py-1 bg-red-700 text-white cursor-pointer "
       >
         Councel
       </div>

@@ -19,7 +19,7 @@ const navigate = useNavigate()
 const [error, setError] = useState(null)
 
   useEffect(()=>{
-    const token = localStorage.getItem('admintoken')
+    const token = sessionStorage.getItem('admintoken')
     setTokenn(token)
 
     if(token!==null){
@@ -48,7 +48,7 @@ const [error, setError] = useState(null)
     instance.post('/api/user/login',payload)
     .then(res=>{
       if(res.data.length>20){
-        localStorage.setItem('admintoken',res.data)
+        sessionStorage.setItem('admintoken',res.data)
         navigate('/admin/dashboard')
 
         // empty the input fields

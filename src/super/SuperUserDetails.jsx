@@ -23,7 +23,7 @@ function SuperUserDetails() {
   return ( 
     <div className="content">
         {showSideBar && <SideBar admin={Sadmin}/>}
-        {!user && LoadingIndicator}
+        {!user && <LoadingIndicator/>}
   
         <div className="dashboard_body">
           <Navbar navHeader={'Houses'}/>

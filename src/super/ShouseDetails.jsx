@@ -13,7 +13,7 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import { toast } from "react-hot-toast";
 
 function ShouseDetails() {
-  const { showSideBar, instance } = useStateContext();
+  const { showSideBar, sinstance } = useStateContext();
 
   const [singleHouse, setsingleHouse] = useState(null);
   const [houseOwer, setHouseOwer] = useState({});
@@ -24,18 +24,18 @@ function ShouseDetails() {
   // fetch single house and fetch single user
 
   useEffect(() => {
-    instance.get(`/api/house/${Hid}`).then((res) => setsingleHouse(res.data));
+    sinstance.get(`/api/house/${Hid}`).then((res) => setsingleHouse(res.data));
 
-    instance
+    sinstance
       .get(`/api/user/user/${Uid}`)
       .then((res) => setHouseOwer(res.data));
-  }, [Hid, Uid, instance]);
+  }, [Hid, Uid, sinstance]);
 
   // deleting photes of the houses
   const deletePhoto = async (name) => {
     // indexOf()
     const _name = name.slice(name.indexOf("/IMAGE") + 1);
-    const res = await instance.delete(`/api/modify/image/${Hid}/${_name}`);
+    const res = await sinstance.delete(`/api/modify/image/${Hid}/${_name}`);
     if (res.status === 200) {
       toast("deleted");
       setDeleteNotifier(deleteNotifier + 1);
@@ -45,7 +45,8 @@ function ShouseDetails() {
   };
 
   if (!singleHouse) return <LoadingIndicator />;
-
+console.log(houseOwer);
+console.log(Uid);
   return (
     <div className="content">
       {!singleHouse && houseOwer && <LoadingIndicator />}

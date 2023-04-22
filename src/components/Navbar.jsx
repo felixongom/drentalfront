@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
-import { BiSearch, BiSend } from "react-icons/bi";
+import { BiSearch } from "react-icons/bi";
 import user from "../assets/images/user.png";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ function Navbar({ navHeader }) {
   const [authUser, setAuthUser] = useState({});
 
   useEffect(() => {
-    const token = localStorage.getItem("sadmintoken");
+    const token = sessionStorage.getItem("sadmintoken");
     if (token === null) {
       navigate("/super");
     }
@@ -24,7 +24,7 @@ function Navbar({ navHeader }) {
 
   const logMeOut = () => {
     navigate("/super");
-    localStorage.removeItem("sadmintoken");
+    sessionStorage.removeItem("sadmintoken");
   };
 
   const { showSideBar, toggleSideBar, searchFuction, search } =
@@ -44,9 +44,7 @@ function Navbar({ navHeader }) {
           onChange={(e) => searchFuction(e.target.value)}
           placeholder="Search. . ."
         />
-        <div className="send">
-          <BiSend className="search_icon send" onClick={() => alert()} />
-        </div>
+       
       </div>
       <div className="avater">
         <button onClick={logMeOut} className="bg-cyan-500 h-8 px-3 text-sm ">

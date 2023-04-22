@@ -1,4 +1,4 @@
-import { CiDark, CiSettings, CiSearch } from "react-icons/ci";
+import { CiDark, CiSearch } from "react-icons/ci";
 import {FaMoneyBill} from 'react-icons/fa'
 import { Link, useNavigate } from "react-router-dom";
 import { useClientContext } from "../assets/js/ClientContext";
@@ -6,9 +6,9 @@ import { useClientContext } from "../assets/js/ClientContext";
 function ClientNavbar({ toggleSerach, page }) {
   const {hideMyhouses} = useClientContext()
   const navigate = useNavigate();
-  const logout = ()=>{localStorage.removeItem('client')}
+  const logout = ()=>{sessionStorage.removeItem('client')}
 
-  const token = localStorage.getItem("admintoken");
+  const token = sessionStorage.getItem("admintoken");
   return (
     <div className="fixed flex w-full top-0 left-0 right-0">
       <div className="bg-gray-300 flex p-2 w-full justify-between bg-opacity-90 relative">
@@ -44,25 +44,15 @@ function ClientNavbar({ toggleSerach, page }) {
               logout
             </Link>
           )}
-          {token !== null && (
+
+          {/* {token == null && (
             <Link
               to="/admin/dashboard"
-              className=" capitalize mr-5 flex text-white bg-cyan-600 pr-4 pl-4 pb-1 pt-1 curser-pointer "
-            >
-              <span>
-                <CiSettings />{" "}
-              </span>
-              manage
-            </Link>
-          )}
-          {token == null && (
-            <Link
-              to="/admin/dashboard"
-              className=" capitalize mr-5 flex text-white bg-black pl-10  pb-1 pt-1 curser-pointer "
+              className=" capitalize mr-5 flex text-white bg-black px-5  py-1 curser-pointer "
             >
               Login
             </Link>
-          )}
+          )} */}
         </div>
       </div>
     </div>

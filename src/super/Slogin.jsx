@@ -18,7 +18,7 @@ function Slogin() {
   const [loginIndicator, setloginIndicator] = useState(false)
 
   useEffect(()=>{
-    const token = localStorage.getItem('sadmintoken')
+    const token = sessionStorage.getItem('sadmintoken')
     // setToken(token)
 
     if(token===null){
@@ -40,7 +40,7 @@ function Slogin() {
         setEmail('')
         setPassword('')
         setloginIndicator(false)
-        localStorage.setItem('sadmintoken', res.data)
+        sessionStorage.setItem('sadmintoken', res.data)
         navigate('/super/dashboard')
 
       }else{

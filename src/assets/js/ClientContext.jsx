@@ -15,7 +15,7 @@ export const ClientContext = ({ children }) => {
         setFilter(text)
     }
 
-const headers =useMemo(()=>({'tokken':localStorage.getItem('client')}), []) 
+const headers =useMemo(()=>({'tokken':sessionStorage.getItem('client')}), []) 
     // axios instans
 const _axios = axios.create({
     baseURL: BASE_URL,
@@ -27,9 +27,9 @@ const _axios = axios.create({
 //   fatching all the houses from active and approved
 useEffect(()=>{
     axios.get(`${BASE_URL}/api/house`, {headers})
-    .then(res=>setAlHouses(res.data))
+    .then(res=>setAlHouses(res.data.reverse()))
     
-},[search, filter, likeView, headers])
+},[filter, likeView, headers])
 
 
 // adding likes and view
@@ -47,7 +47,6 @@ const addViews =  async (house_id)=>{
 
     }else{
         if(JSON.parse(localViews).includes(house_id) ){
-            console.log('');
         }else{
             // push to localstorage items
            let newLoclaviews = JSON.parse(localViews)
@@ -73,7 +72,6 @@ const addLikes =  async (house_id)=>{
 
     }else{
         if(JSON.parse(localLikes).includes(house_id) ){
-            console.log('liked');
         }else{
             // push to localstorage items
            let newLoclalike = JSON.parse(localLikes)
@@ -143,7 +141,7 @@ const switchLoginRegisterForm = ()=>{
 }
 // collecting house data
 const getHouseData = (house)=>{
-    const clientToken = localStorage.getItem('client')
+    const clientToken = sessionStorage.getItem('client')
     if(clientToken!==null){
         setAlreadyLogedIn(true)
         setBookingPrice(house.prices[0])
@@ -151,13 +149,11 @@ const getHouseData = (house)=>{
     setShowModal(true)
     setHouseBeingBooked(house)
 }
-console.log(houseBeingBooked);
 // showing maodal 
 const hideModal = (house)=>{
     setShowModal(false)
     setAlreadyLogedIn(false)
    
-    console.log(house);
 }
 
 // showing maodal 
@@ -188,7 +184,6 @@ const registerUser = async ()=>{
     }
     
     const res = await _axios.post('/api/user/register', payload)
-    console.log(res);
     setAuthIndicator(!authIndicator)
     if (res.data.length){
         setregisterError(res.data)
@@ -219,15 +214,13 @@ const loginUser = async ()=>{
         setAlreadyLogedIn(true)
        
         // set token in local storage
-        localStorage.setItem('client', res.data)
+        sessionStorage.setItem('client', res.data)
         setAnotherNumber(authUser.phone)
         
     }
     
 }
 
-console.log(authUser);
-console.log(anotherNumber);
 
 
 // get the authenticated client use 
@@ -242,13 +235,11 @@ useEffect(()=>{
 
 
 },[headers])
-// console.log(authUser);
 
 
 // sending the actual booking
 const selectIndex =(price, i)=>{
     setSelectedPrice(i)
-    console.log(price, i);
     setBookingPrice(price)
 
 
@@ -260,19 +251,20 @@ const onChangeAnotherNumber =(number)=>{
 }
 
 //details for booking the house that will be sent to the server
+
 const bookSendTheBooking = async ()=>{
     setBookingIndicator(true)
     const payload = {
         houseId:houseBeingBooked.id,
         bookeeId:authUser._id,
         bookeePhone:anotherNumber,
+        houseOwner:houseBeingBooked.user_id,
         price:bookingPrice
 
         
     }
 
     const res = await axios.post(`${BASE_URL}/api/booking`, payload, {headers})
-    console.log(res.data);
     if(res.data.error){
         setBookingError(res.data.error)
         setBookingIndicator(false)
@@ -288,7 +280,7 @@ const bookSendTheBooking = async ()=>{
 useEffect(()=>{
     axios.get(`${BASE_URL}/api/booking/me`, {headers})
     .then(res =>setHouseHaveBook(res.data))  
-},[headers])
+},[headers, bookingIndecator])
 
 const hideMyhouses =()=>{
     setShowMyHouses(!showMyHouses)
@@ -298,10 +290,11 @@ const hideMyhouses =()=>{
 return (
     <Context.Provider
     value={{
-                allHouses,
+                allHouses:allHouses,
+                latestResult:allHouses.slice(0,3),
                 searchFunct,
                 search,
-                serchResult,
+                serchResult:serchResult.reverse(),
                 dataLength:serchResult.length,
 
                 toggleFilter,

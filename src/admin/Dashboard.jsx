@@ -9,12 +9,15 @@ import { useStateContext } from '../assets/js/Context'
 import AdminNavbar from '../components/AdminNavbar'
 import AddHouseBtn from '../components/AddHouseBtn'
 import LoadingIndicator from '../components/LoadingIndicator'
+import Info from '../components/Info'
+
 
 function Dashboard() {
   const navigate = useNavigate()
   const {instance} = useStateContext()
   const [houses, setHouses] = useState([])
   const [deleted, setDeleted] = useState(0)
+  const [housetobeDelededId, setHouseToBeDeleted] = useState('')
 
 
  
@@ -26,11 +29,20 @@ function Dashboard() {
   },[deleted, instance]) 
 
   // deleting house
-  const deleteHouse = async(id)=>{
-    await instance.delete(`/api/house/delete/${id}`)
+  const acceptDeleting = async()=>{
+    await instance.delete(`/api/house/delete/${housetobeDelededId}`)
     setDeleted(deleted+1)
+    setHouseToBeDeleted('')
+  } 
+  // deleting house
+  const councelDeleting = ()=>{
+    setHouseToBeDeleted('')
+  } 
+  const deleteHouse = async(id)=>{
+    setHouseToBeDeleted(id)
   } 
 
+  console.log( housetobeDelededId );
   // navigation to house details
   const toHouseDetails = (id)=>{
     navigate(`/admin/houses-details/${id}`)
@@ -45,6 +57,10 @@ function Dashboard() {
   return (
     <div className="content">
       {/* {showSideBar && <SideNav admin={Admin}/>} */}
+      {housetobeDelededId !== "" &&<Info
+        councelDeleting={councelDeleting}
+        acceptDeleting={acceptDeleting}
+        />}
       <div className="dashboard_body">
           <AdminNavbar navHeader={'My Houses'} />
           <br />

@@ -15,6 +15,8 @@ export const StateContext = ({ children }) => {
   const [update, setApprove] = useState(false) 
   const [deleted, setDeleted] = useState(true)
 
+  const [deleteHouseId, setDeleteHouseId] = useState('')
+
   
   
   
@@ -48,10 +50,10 @@ export const StateContext = ({ children }) => {
     };
     // .............................................
     
-    const headers =useMemo(()=>({'tokken':localStorage.getItem('sadmintoken')}), []) 
-    const Aheaders =useMemo(()=>({'tokken':localStorage.getItem('admintoken')}), []) 
-    let token = localStorage.getItem("admintoken");
-    let stoken = localStorage.getItem("sadmintoken");
+    const headers =useMemo(()=>({'tokken':sessionStorage.getItem('sadmintoken')}), []) 
+    const Aheaders =useMemo(()=>({'tokken':sessionStorage.getItem('admintoken')}), []) 
+    let token = sessionStorage.getItem("admintoken");
+    let stoken = sessionStorage.getItem("sadmintoken");
 
     // axios instans
 const instance = axios.create({
@@ -117,14 +119,25 @@ const approveHouse =(h)=>{
 }
 
 // deleting ahouse
+const acceptDeleting =async()=>{
+  if(deleteHouseId!==''){
+    sinstance.delete(`/api/house/delete/${deleteHouseId}`)
+    .then(res=>{
+      setApprove(!update)
+      setDeleted(!deleted)
+      toast(res.data)
+      setDeleteHouseId('')
+    })
+  }
+}
+
+const councelDeleting =()=>{
+  setDeleteHouseId('')
+
+}
 
 const deleteHouse = (id)=>{
-  sinstance.delete(`/api/house/delete/${id}`)
-  .then(res=>{
-    setApprove(!update)
-    setDeleted(!deleted)
-    toast(res.data)
-  })
+  setDeleteHouseId(id)
 }
 
 // serch house
@@ -167,6 +180,9 @@ const activateUser = async(id)=>{
         users,
         deleteUser,
         activateUser,
+        deleteHouseId,
+        councelDeleting,
+        acceptDeleting,
 
 
         // superadminrequest
