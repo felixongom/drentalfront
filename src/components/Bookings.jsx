@@ -8,7 +8,7 @@ function Bookings({bookings}) {
     const { bottomPaginater, pageData} = useStateContext()
     
     const [page, setPage] =useState(1)
-    if(bookings===null)return <LoadingIndicator/>
+    if(!bookings)return <LoadingIndicator/>
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ];

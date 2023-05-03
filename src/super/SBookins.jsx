@@ -11,16 +11,14 @@ import axios from "axios";
 
 
 function SBookings() {
-    const [bookings, setBooking] = useState(null)
+    const [bookings, setBooking] = useState([])
   // the side bar
     const { showSideBar , headers} = useStateContext();
     useEffect(()=>{
         axios.get(`${BASE_URL}/api/booking`, {headers})
         .then(res=>setBooking(res.data) )
-    },[headers])
-    
- 
-  
+      },[headers])
+
     return (
       <div className="content">
         {showSideBar && <SideBar admin={Sadmin}/>}
