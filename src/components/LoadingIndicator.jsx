@@ -1,9 +1,10 @@
-import {FiLoader} from 'react-icons/fi'
+// import {FaLaptop} from 'react-icons/fa'
+import {FaSpinner} from 'react-icons/fa'
 function LoadingIndicator() {
   return (
-    <div className="bg-black-100 h-full w-full  pl-2 loading_container" >
+    <div className="bg-white h-full w-full  pl-2 loading_container" >
         <div className='flex justify-center h-full'>
-            <FiLoader className='spin text-xlg animate-spin icon text-white '/>
+            <FaSpinner className='spin text-xlg animate-spin icon text-blue-600 '/>
         </div>
     </div>
   )

@@ -3,6 +3,8 @@ import { FiThumbsUp, FiEye, FiPhone } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { useClientContext } from "../assets/js/ClientContext";
 import defaultImg from  '../assets/images/default.jpg'
+import LoadingIndicator from "./LoadingIndicator";
+
 
 function Card({ house }) {
   const { addLikes, getHouseData } = useClientContext();
@@ -10,10 +12,10 @@ function Card({ house }) {
   const { address } = house;
 
 
-  if (house.length > 0) return <div className="text-gray-300">loding. . .</div>;
+  if (house.length > 0) return <LoadingIndicator/>
 
   return (
-    <div className="card shadow-md  hover:scale-10 transition-all rounded-md overflow-hidden">
+    <div layout className="card shadow-md  hover:scale-10 transition-all rounded-md overflow-hidden">
       <div className="w-full coardImageContaioner">
         <img
           onClick={() => navigate(`/detail/${house.id}`)}

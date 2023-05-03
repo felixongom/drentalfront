@@ -15,7 +15,7 @@ import Info from '../components/Info'
 function Dashboard() {
   const navigate = useNavigate()
   const {instance} = useStateContext()
-  const [houses, setHouses] = useState([])
+  const [houses, setHouses] = useState(null)
   const [deleted, setDeleted] = useState(0)
   const [housetobeDelededId, setHouseToBeDeleted] = useState('')
 
@@ -52,7 +52,7 @@ function Dashboard() {
   const toHouseUpdate = (id)=>{
     navigate(`/admin/add-houses/${id}`)
   }
-  if(!houses) return <LoadingIndicator/>
+  if(houses===null) return <LoadingIndicator/>
 
   return (
     <div className="content">

@@ -44,7 +44,7 @@ function AdminHouseDetails() {
   return (
     <div className="content">
       {/* {showSideBar && <SideNav admin={Admin}/>} */}
-    {!singleHouse&&<LoadingIndicator/>}
+    {singleHouse===null&&<LoadingIndicator/>}
       <div className="dashboard_body">
         <AdminNavbar navHeader={"Details"} />
         <ShouseData data={singleHouse}/>

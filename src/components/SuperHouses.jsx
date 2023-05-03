@@ -5,6 +5,7 @@ import { useStateContext } from "../assets/js/Context";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "./LoadingIndicator";
 
+
 const Superhouses = () => {
   const {
     bottomPaginater,
