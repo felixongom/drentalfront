@@ -10,7 +10,8 @@ import LoadingIndicator from '../components/LoadingIndicator'
 import LoginRegisterModal from '../components/LoginRegisterModal'
 import BookingModel from '../components/BookingModel'
 import HouseHaveBook from '../components/HouseHaveBook'
-
+import ClientFooter from '../components/ClientFooter'
+import BigDisign from '../components/decoration/BigDisign'
 
 function Home() {
   const {allHouses, 
@@ -21,7 +22,6 @@ function Home() {
     filter,
     showModal,
     alreadyLogedIn,
-    getStarted,
     showMyHouses
   } = useClientContext()
   const {bottomPaginater, pageData, } = useStateContext()
@@ -37,10 +37,11 @@ function Home() {
   const toggleSerach = ()=>{
     setShowSearchBar(!showSearchBar)
   }
+  let token = sessionStorage.getItem('client')
   
   return (
     <div>
-      {showMyHouses && <HouseHaveBook/>}
+      {showMyHouses && token!==null &&  <HouseHaveBook/>}
       {showModal && !alreadyLogedIn && <LoginRegisterModal/>}
       {alreadyLogedIn && <BookingModel/>}
       {!serchResult && <LoadingIndicator/>}
@@ -52,8 +53,10 @@ function Home() {
             <div>
               <h1  className='font-bold hero_heading uppercase text-3xl max-w-2xl flex-wrap break-words'>
                 explore and find lodges & rentals in your area</h1>        
-              <p className='text-white mt-8 text-lg'>Don't go far locking for a lodge or hose for rent, just find them all here and connect to the owner as quickly as posible</p>
-              <button onClick={()=>getStarted()} className='w-40 mt-6 capitalize'>get started</button>
+              <p className='text-white mt-8 pb-6 text-lg'>Don't go far locking for a lodge or hose for rent, just find them all here and connect to the owner as quickly as posible</p>
+              <a href='#item_container' 
+                // onClick={()=>getStarted()} 
+                className='capitalize bg-black text-white py-2 px-5'>get started</a>
             </div>
             <div className='image_container'>
             <img className='img' src={img} alt="" width={500}/>
@@ -64,7 +67,9 @@ function Home() {
         </div>
       
       </div>
-      <h2 className='ml-5 mr-5 ml-30 sm:p-10 lg:ml-20 mt-20 font-bold text-gray-600'>Latest</h2>
+      <h2 
+        id='item_container'
+      className='ml-5 mr-5 ml-30 sm:p-10 lg:ml-20 mt-20 font-bold text-gray-600 '>Latest</h2>
     <Cards allHouses={latestResult}/>
     <h1 className='ml-5 mr-5 lg:ml-20 mt-20 font-bold text-orange-600'>{latestResult.length<9?'0'+dataLength.toString():allHouses.length} Availables Results</h1>
     <div className='flex justify-start  ml-5 mr-5 lg:ml-20 mt-20 font-bold' style={{width:300}}>
@@ -91,6 +96,7 @@ function Home() {
           ))}
         </div>
       </div>
+      <ClientFooter/>
     </div>
   )
 }

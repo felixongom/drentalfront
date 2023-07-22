@@ -200,6 +200,7 @@ const loginUser = async ()=>{
         email,
         password,
         usertype:'client'
+        
     }
     
     const res = await _axios.post('/api/user/login', payload)
@@ -280,7 +281,7 @@ const bookSendTheBooking = async ()=>{
 useEffect(()=>{
     axios.get(`${BASE_URL}/api/booking/me`, {headers})
     .then(res =>setHouseHaveBook(res.data))  
-},[headers, bookingIndecator])
+},[headers, bookingIndecator, alreadyLogedIn])
 
 const hideMyhouses =()=>{
     setShowMyHouses(!showMyHouses)
@@ -336,6 +337,7 @@ return (
                 bookingError,
                 bookingIndecator,
                 houseHaveBook,
+                setHouseHaveBook,
 
                 hideMyhouses,
                 showMyHouses
