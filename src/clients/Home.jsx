@@ -11,7 +11,6 @@ import LoginRegisterModal from '../components/LoginRegisterModal'
 import BookingModel from '../components/BookingModel'
 import HouseHaveBook from '../components/HouseHaveBook'
 import ClientFooter from '../components/ClientFooter'
-import BigDisign from '../components/decoration/BigDisign'
 
 function Home() {
   const {allHouses, 
