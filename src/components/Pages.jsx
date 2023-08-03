@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {Route, Routes } from "react-router-dom";
 
 // admin
 import Login from "../admin/Login";
@@ -21,11 +21,29 @@ import SBookings from '../super/SBookins'
 // client
 import Home from "../clients/Home";
 import Details from "../clients/HomeDetails";
-// import UpdateUser from "../admin/UpdateUser";
 import NotFound from "../clients/scss/NotFound";
 
 
 function Pages() {
+  const[Admintoken, setAdminLogedIn] = useState(null)
+  const[Supertoken, setSuperLogedIn] = useState(null)
+
+  useEffect(()=>{
+
+    setAdminLogedIn(sessionStorage.getItem('admintoken'))
+    setSuperLogedIn(sessionStorage.getItem('sadmintoken'))
+    console.log(Supertoken);
+    console.log(Admintoken);
+    
+  },[Admintoken, Supertoken])
+
+  
+
+const AdminAuth = (routePage)=>Admintoken!==null?routePage:<Login/> || <Register />
+const SuperAuth = (routePage)=>Supertoken!==null?routePage:<Slogin /> || <Sregister />
+
+
+
   return (
     
     <Routes>
@@ -35,27 +53,27 @@ function Pages() {
           
 
           {/* admins */}
-          <Route path="/admin" element={<Login />}/>
+          <Route path="/admin" element={AdminAuth(<Login />)}/>
+          <Route path="/admin/dashboard" element={AdminAuth(<Dashboard />)} />
           <Route path="/admin/register" element={<Register />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path ='/admin/add-houses' element={<AddHouses/>}/>      
-          <Route path ='/admin/bookings' element={<ABookings/>}/>      
-          <Route path ='/admin/add-houses/:id' element={<AddHouses/>}/>      
-          <Route path ='/admin/houses-details/:Hid' element={<AdminHouseDetails/>}/>      
-          <Route path ='/admin/update-user' element={<SuperUserDetails/>}/>      
+          <Route path ='/admin/add-houses' element={AdminAuth(<AddHouses/>)}/>      
+          <Route path ='/admin/bookings' element={AdminAuth(<ABookings/>)}/>      
+          <Route path ='/admin/add-houses/:id' element={AdminAuth(<AddHouses/>)}/>      
+          <Route path ='/admin/houses-details/:Hid' element={AdminAuth(<AdminHouseDetails/>)}/>      
+          <Route path ='/admin/update-user' element={AdminAuth(<SuperUserDetails/>)}/>      
 
           {/* super admins */}
           <Route path="super" element={<Slogin />}/>
-          <Route path="super/dashboard" element={<Sdasboard />} />  
-          <Route path="super/users" element={<Susers />} />  
-          <Route path="super/register" element={<Sregister />} />  
-          <Route path="super/register" element={<Sregister />} />  
-          <Route path="super/update/:id" element={<Sregister />} />  
-          <Route path="super/user-detail/:id" element={<SuperUserDetails />} />  
-          <Route path="super/houses" element={<Shouses/>} />  
-          <Route path="super/bookings" element={<SBookings/>} />  
-          <Route path="super/house-details/:Hid/:Uid" element={<ShousesDetails/>} />  
-          <Route path="super/pricing" element={<Pricing/>} />  
+          <Route path="super/dashboard" element={SuperAuth(<Sdasboard />)} />  
+          <Route path="super/users" element={SuperAuth(<Susers />)} />  
+          <Route path="super/register" element={SuperAuth(<Sregister />)} />  
+          <Route path="super/register" element={SuperAuth(<Sregister />)} />  
+          <Route path="super/update/:id" element={SuperAuth(<Sregister />)} />  
+          <Route path="super/user-detail/:id" element={SuperAuth(<SuperUserDetails />)} />  
+          <Route path="super/houses" element={SuperAuth(<Shouses/>)} />  
+          <Route path="super/bookings" element={SuperAuth(<SBookings/>)} />  
+          <Route path="super/house-details/:Hid/:Uid" element={SuperAuth(<ShousesDetails/>)} />  
+          <Route path="super/pricing" element={SuperAuth(<Pricing/>)} />  
           <Route path="*" element={<NotFound/>} />  
         </Routes>
 

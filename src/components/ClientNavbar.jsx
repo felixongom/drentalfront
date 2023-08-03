@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useClientContext } from "../assets/js/ClientContext";
 
 function ClientNavbar({ toggleSerach, page }) {
-  const {hideMyhouses,houseHaveBook, setHouseHaveBook} = useClientContext()
+  const {hideMyhouses,houseHaveBook, setHouseHaveBook, authUser} = useClientContext()
   const navigate = useNavigate();
   const logout = ()=>{
     setHouseHaveBook(0)
@@ -16,7 +16,7 @@ function ClientNavbar({ toggleSerach, page }) {
 
   return (
     <div className="fixed flex w-full top-0 left-0 right-0 z-10">
-      <div className="bg-gray-300  flex p-2 w-full justify-between bg-opacity-90 relative">
+      <div className="bg-gray-300 w-full flex p-2  justify-between bg-opacity-90 relative">
         <div className="flex justify-center align-middle h-full cursor-pointer w-1/6">
           <div
             onClick={() => navigate("/")}
@@ -33,16 +33,15 @@ function ClientNavbar({ toggleSerach, page }) {
               onClick={() => toggleSerach()}
             >
             <CiSearch
-              className={` text-lg mr-2  mt-1 cursor-pointer`}
+              className={` text-lg  mt-1 cursor-pointer`}
               />
-            <span className=" text-black ">Search</span>
             </div>
           )}
           {!page && token!==null &&  (
             <>
             <FaMoneyBill
               onClick={() => hideMyhouses()}
-              className={` text-lg mr-5 ml-7 mt-2 cursor-pointer`}
+              className={` text-lg mr- ml-7 mt-2 cursor-pointer`}
             />
             {token!==null && (
 
@@ -67,6 +66,8 @@ function ClientNavbar({ toggleSerach, page }) {
               logout
             </Link>
           )}
+
+          {authUser&&<span className="ml-2 text-sm italic p-1 font-semibold">{authUser.name}</span>}
 
         </div>
       </div>

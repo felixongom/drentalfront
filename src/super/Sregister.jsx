@@ -68,7 +68,7 @@ function SRegister() {
       
       // navigate
       setregisteIndicator(false);
-      id?toast('updatea'):toast('registered')
+      id?toast('updated'):toast('registered')
       
       if(res.status !==200){
         setregisteIndicator(false);
@@ -85,7 +85,6 @@ function SRegister() {
   const uploadAvater = async()=>{
     const fd = new FormData()
     fd.append('avater', avater[0])
-    console.log(avater[0]);
 
 
 

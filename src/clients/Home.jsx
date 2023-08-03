@@ -21,7 +21,8 @@ function Home() {
     filter,
     showModal,
     alreadyLogedIn,
-    showMyHouses
+    showMyHouses,
+    // getStarted
   } = useClientContext()
   const {bottomPaginater, pageData, } = useStateContext()
 
@@ -46,8 +47,8 @@ function Home() {
       {!serchResult && <LoadingIndicator/>}
       <ClientSearch showSearchBar={showSearchBar}/>
       <ClientNavbar toggleSerach={toggleSerach}/>
-      <div className="">
-        <div className='hero_container pt-10'>
+      <div className="hero_outer">
+        <div className='hero_container pt-10 w-full'>
           <div className='inner_container sm:block '>
             <div>
               <h1  className='font-bold hero_heading uppercase text-3xl max-w-2xl flex-wrap break-words'>

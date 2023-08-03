@@ -340,7 +340,8 @@ return (
                 setHouseHaveBook,
 
                 hideMyhouses,
-                showMyHouses
+                showMyHouses,
+                authUser
 
         }}
         >

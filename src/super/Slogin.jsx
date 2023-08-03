@@ -4,7 +4,6 @@ import bg from "../assets/images/bg.jpg";
 
 import {useEffect} from 'react'
 import user from "../assets/images/user.png";
-import { Link } from "react-router-dom";
 import {useStateContext} from '../assets/js/Context'
 import {useNavigate} from 'react-router-dom'
 
@@ -41,16 +40,15 @@ function Slogin() {
         setPassword('')
         setloginIndicator(false)
         sessionStorage.setItem('sadmintoken', res.data)
-        navigate('/super/dashboard')
+        window.location.href='/super/dashboard'
+
 
       }else{
         setError('Incorrect email or password')
         setloginIndicator(false)
       }
-    console.log(res.data);
      
   }
-
 
   return (
     <div
@@ -94,14 +92,6 @@ function Slogin() {
         </div>
 
         <button disabled={loginIndicator?true:false} className={`${loginIndicator?'bg-gray-600':''}`} onClick={Slogin}>Login</button>
-
-        
-          <p>
-            Don't have accoun't
-            <Link to="/admin/register" className="link">
-              Register
-            </Link>
-          </p>
       </form>
     </div>
   );

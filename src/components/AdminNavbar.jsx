@@ -11,15 +11,15 @@ function AdminNavbar({ navHeader }) {
 
   const [authUser, setAuthUser] = useState({});
 
-  const token = sessionStorage.getItem("admintoken");
-
+  
   useEffect(() => {
+    const token = sessionStorage.getItem("admintoken");
     if (token === null) {
       navigate("/admin");
     }
     instance.get("/api/user/me")
     .then((res) => setAuthUser(res.data));
-  }, [instance, navigate, token]);
+  }, [instance, navigate]);
 
   const { showSideBar } = useStateContext();
   const logMeOut = () => {

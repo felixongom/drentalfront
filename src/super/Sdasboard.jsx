@@ -74,7 +74,7 @@ const userCount = allUsers.length
       {showSideBar && <SideBar admin={Sadmin} />}
       <div className="dashboard_body">
         <Navbar navHeader={'Dashboard'}/>
-        <div className="card_container">
+        <div className="card_container justify-between">
           <div className=" Admincard card1">
             <FiUsers className="card_icons" />
             <div>

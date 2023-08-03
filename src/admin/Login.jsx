@@ -40,15 +40,16 @@ const [error, setError] = useState(null)
 }
 
   // function to login
-  const Login =(e)=>{
+  const Login = async (e)=>{
     e.preventDefault()
     setloginIndicator(true)
-
+    
     instance.post('/api/user/login',payload)
     .then(res=>{
       if(res.data.length>20){
         sessionStorage.setItem('admintoken',res.data)
-        navigate('/admin/dashboard')
+        // navigate('/admin/dashboard')
+        window.location.href='/admin/dashboard'
 
         // empty the input fields
         setEmail('')
