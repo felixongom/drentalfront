@@ -9,6 +9,8 @@ function ClientNavbar({ toggleSerach, page }) {
   const logout = ()=>{
     setHouseHaveBook(0)
     sessionStorage.removeItem('client')
+    window.location.href ='/'
+
   }
 
   
@@ -61,13 +63,13 @@ function ClientNavbar({ toggleSerach, page }) {
             <Link
               to=""
               onClick={()=> logout() }
-              className="capitalize ml-5 flex text-white bg-black pr-4 pl-4 pb-1 pt-1 curser-pointer "
+              className="capitalize ml-5 flex text-white bg-black pr-4 pl-4 pb-1 pt-1 curser-pointer rounded"
             >
               logout
             </Link>
           )}
 
-          {authUser&&<span className="ml-2 text-sm italic p-1 font-semibold">{authUser.name}</span>}
+          {authUser&& <span className="ml-2 p-1 text-sm"> Hi <span className="italic font-semibold capitalize">{authUser.name}</span></span>}
 
         </div>
       </div>

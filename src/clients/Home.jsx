@@ -22,7 +22,8 @@ function Home() {
     showModal,
     alreadyLogedIn,
     showMyHouses,
-    // getStarted
+    getStarted,
+    houseBeingBooked
   } = useClientContext()
   const {bottomPaginater, pageData, } = useStateContext()
 
@@ -43,7 +44,7 @@ function Home() {
     <div>
       {showMyHouses && token!==null &&  <HouseHaveBook/>}
       {showModal && !alreadyLogedIn && <LoginRegisterModal/>}
-      {alreadyLogedIn && <BookingModel/>}
+      {alreadyLogedIn && houseBeingBooked!==null && <BookingModel/>}
       {!serchResult && <LoadingIndicator/>}
       <ClientSearch showSearchBar={showSearchBar}/>
       <ClientNavbar toggleSerach={toggleSerach}/>
@@ -53,10 +54,12 @@ function Home() {
             <div>
               <h1  className='font-bold hero_heading uppercase text-3xl max-w-2xl flex-wrap break-words'>
                 explore and find lodges & rentals in your area</h1>        
-              <p className='text-white mt-8 pb-6 text-lg'>Don't go far locking for a lodge or hose for rent, just find them all here and connect to the owner as quickly as posible</p>
+              <p className='text-white mt-8 pb-6 text-lg rounded'>Don't go far locking for a lodge or hose for rent, just find them all here and connect to the owner as quickly as posible</p>
               <a href='#item_container' 
-                // onClick={()=>getStarted()} 
-                className='capitalize bg-black text-white py-2 px-5'>get started</a>
+                onClick={
+                  ()=>token===null && getStarted()
+                } 
+                className={`capitalize bg-black text-white py-2 px-5 ${token==null && 'animate-pulse rounded-lg bg-red-600' } ` }>{token===null? 'get started':'loged In'}</a>
             </div>
             <div className='image_container'>
             <img className='img' src={img} alt="" width={500}/>

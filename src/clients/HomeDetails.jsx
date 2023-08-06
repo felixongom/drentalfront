@@ -22,6 +22,8 @@ function Details() {
     instance.get(`/api/house/${Hid}`).then((res) => setHouse(res.data));
   }, [instance, Hid]);
 
+ 
+
   let i = house?.images?.[0];
 
   if (!house) return <LoadingIndicator />;
@@ -180,6 +182,13 @@ function Details() {
                 </div>
               )}
             </div>
+            {/* description */  }
+            {house.description && 
+            <div className="ml-10 bg-gray-100 p-3 my-5">
+              <h2 className="font-semibold text-gray-800 underline">More Description</h2>
+              <h1 className="bg-gray-100 pt3 italic t">{house.description}</h1>
+            </div>
+            }
           </div>
         </div>
       </div>

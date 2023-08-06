@@ -26,7 +26,7 @@ function LoginRegisterModal() {
     <div className="darkeningModal">
       <div
         onClick={() => hideModal()}
-        className="absolute top-20 left-10 px-4 py-1 bg-red-700 text-white"
+        className="absolute top-20 left-10 px-4 py-1 bg-red-700 text-white cursor-pointer"
       >
         Councel
       </div>
@@ -44,7 +44,7 @@ function LoginRegisterModal() {
             <input value={email} onChange={(e)=>onChangeEmail(e.target.value)} className="border border-black" placeholder="email" />
           </div>
           <div>
-            <input value={password} onChange={(e)=>onChangePassword(e.target.value)} className="border border-black" placeholder="Passwor" /> <br />
+            <input value={password} onChange={(e)=>onChangePassword(e.target.value)} className="border border-black" placeholder="Password" /> <br />
           </div>
 
           <button disabled= {authIndicator && true} onClick={()=>loginUser()} >{authIndicator?'Loging in. . . ':'Login'}</button>

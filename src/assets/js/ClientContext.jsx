@@ -10,12 +10,43 @@ export const ClientContext = ({ children }) => {
     const [search, setSearh] = useState('')
     const [filter, setFilter] = useState('all')
     const [likeView, setLikeView] = useState(0)
+    const [clientToken, setClientToken] = useState(null)
 
-    const toggleFilter = (text)=>{
-        setFilter(text)
+
+// ................................................................
+// ................................................................
+const [loginRegisterSwitching,setLoginRegisterswitching] = useState(true)
+        const [alreadyLogedIn,setAlreadyLogedIn] = useState(false)
+        const [showModal,setShowModal] = useState(false)
+        const [houseBeingBooked,setHouseBeingBooked] = useState(null)
+        // collecting the reister form field
+        const[name, setName] = useState('')
+        const[email, setEmail] = useState('')
+        const[phone, setPhone] = useState('')
+        const[password, setPassword] = useState('')
+        const [authIndicator, setAuthIndicator] = useState(false)
+        const [registerError, setregisterError] = useState([])
+        const [authUser, setAuthUser] =useState(null)
+        const[anotherNumber, setAnotherNumber]=useState('')
+        const[bookingPrice, setBookingPrice]=useState({})
+        
+        const [selectedPrice, setSelectedPrice] =useState(0)
+        const [bookingError, setBookingError] =useState('')
+        const [bookingIndecator, setBookingIndicator] =useState(false)
+        const [houseHaveBook, setHouseHaveBook] = useState(null)
+        
+        const [showMyHouses, setShowMyHouses] =useState(false)
+        // 
+
+// ................................................................
+// ................................................................
+
+    
+    function toggleFilter(text) {
+        setFilter(text);
     }
-
-const headers =useMemo(()=>({'tokken':sessionStorage.getItem('client')}), []) 
+    
+    const headers = useMemo(()=>({'tokken':clientToken?clientToken:sessionStorage.getItem('client')}), [clientToken]) 
     // axios instans
 const _axios = axios.create({
     baseURL: BASE_URL,
@@ -24,12 +55,14 @@ const _axios = axios.create({
 
   });
 
+
 //   fatching all the houses from active and approved
 useEffect(()=>{
     axios.get(`${BASE_URL}/api/house`, {headers})
     .then(res=>setAlHouses(res.data.reverse()))
+    setClientToken(sessionStorage.getItem('client'))
     
-},[filter, likeView, headers])
+},[filter, likeView, headers, showModal, alreadyLogedIn])
 
 
 // adding likes and view
@@ -108,30 +141,6 @@ if(filter==='all'){
 // .............................................
 // .............................................
 // handling booking
-const [loginRegisterSwitching,setLoginRegisterswitching] = useState(true)
-const [alreadyLogedIn,setAlreadyLogedIn] = useState(false)
-const [showModal,setShowModal] = useState(false)
-const [houseBeingBooked,setHouseBeingBooked] = useState({})
-
-// collecting the reister form field
-const[name, setName] = useState('')
-const[email, setEmail] = useState('')
-const[phone, setPhone] = useState('')
-const[password, setPassword] = useState('')
-const [authIndicator, setAuthIndicator] = useState(false)
-const [registerError, setregisterError] = useState([])
-const [authUser, setAuthUser] =useState(null)
-const[anotherNumber, setAnotherNumber]=useState('')
-const[bookingPrice, setBookingPrice]=useState({})
-
-const [selectedPrice, setSelectedPrice] =useState(0)
-const [bookingError, setBookingError] =useState('')
-const [bookingIndecator, setBookingIndicator] =useState(false)
-const [houseHaveBook, setHouseHaveBook] = useState(null)
-
-const [showMyHouses, setShowMyHouses] =useState(false)
-
-// 
 
 // collecting the house
 
@@ -150,7 +159,7 @@ const getHouseData = (house)=>{
     setHouseBeingBooked(house)
 }
 // showing maodal 
-const hideModal = (house)=>{
+    const hideModal = (house)=>{
     setShowModal(false)
     setAlreadyLogedIn(false)
    
@@ -158,7 +167,7 @@ const hideModal = (house)=>{
 
 // showing maodal 
 const getStarted = ()=>{
-    setShowModal(true)   
+    setShowModal(true)
 }
 
 
@@ -193,6 +202,20 @@ const registerUser = async ()=>{
     
     
 }
+
+// get the authenticated client use 
+
+useEffect(()=>{
+    axios.get(`${BASE_URL}/api/user/me`, {headers})
+    .then(res=>{
+        setAuthUser(res.data)
+        setAnotherNumber(res.data.phone)
+        console.log('hello',res.data);
+    })
+
+
+},[alreadyLogedIn, clientToken, headers])
+
 // .............................................
 const loginUser = async ()=>{
     setAuthIndicator(!authIndicator)
@@ -204,39 +227,31 @@ const loginUser = async ()=>{
     }
     
     const res = await _axios.post('/api/user/login', payload)
-
+    
     setAuthIndicator(!authIndicator)
-    if (res.data.messege){
+    if (typeof(res.data) !=='string'){
+        console.log(typeof(res.data));
         setregisterError([res.data.messege])
     }else{
         setLoginRegisterswitching(true)
         setregisterError([])
         setShowModal(false)
-        setAlreadyLogedIn(true)
-       
+        setAlreadyLogedIn(!alreadyLogedIn)
+        
         // set token in local storage
         sessionStorage.setItem('client', res.data)
-        setAnotherNumber(authUser.phone)
+        authUser && setAnotherNumber(authUser.phone)
+    
+        setClientToken(res.data)
+        if(houseBeingBooked===null){
+            // window.location.href ='/log'
+            setShowModal(true)     
+        }
         
     }
     
+    
 }
-
-
-
-// get the authenticated client use 
-
-useEffect(()=>{
-    axios.get(`${BASE_URL}/api/user/me`, {headers})
-    .then(res=>{
-        setAuthUser(res.data)
-        setAnotherNumber(res.data.phone)
-    })
-
-
-
-},[headers])
-
 
 // sending the actual booking
 const selectIndex =(price, i)=>{
@@ -260,10 +275,9 @@ const bookSendTheBooking = async ()=>{
         bookeeId:authUser._id,
         bookeePhone:anotherNumber,
         houseOwner:houseBeingBooked.user_id,
-        price:bookingPrice
-
-        
+        price:bookingPrice   
     }
+
 
     const res = await axios.post(`${BASE_URL}/api/booking`, payload, {headers})
     if(res.data.error){
@@ -281,7 +295,7 @@ const bookSendTheBooking = async ()=>{
 useEffect(()=>{
     axios.get(`${BASE_URL}/api/booking/me`, {headers})
     .then(res =>setHouseHaveBook(res.data))  
-},[headers, bookingIndecator, alreadyLogedIn])
+},[headers, bookingIndecator, alreadyLogedIn, houseBeingBooked])
 
 const hideMyhouses =()=>{
     setShowMyHouses(!showMyHouses)

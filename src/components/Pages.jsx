@@ -22,6 +22,7 @@ import SBookings from '../super/SBookins'
 import Home from "../clients/Home";
 import Details from "../clients/HomeDetails";
 import NotFound from "../clients/scss/NotFound";
+import Log from "../clients/Log";
 
 
 function Pages() {
@@ -50,6 +51,7 @@ const SuperAuth = (routePage)=>Supertoken!==null?routePage:<Slogin /> || <Sregis
           {/* cliens */}
           <Route path="/" element={<Home />}/>
           <Route path="/detail/:Hid" element={<Details />} />
+          <Route path="/log" element={<Log />} />
           
 
           {/* admins */}
