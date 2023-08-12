@@ -23,6 +23,7 @@ import Home from "../clients/Home";
 import Details from "../clients/HomeDetails";
 import NotFound from "../clients/scss/NotFound";
 import Log from "../clients/Log";
+import LandingPage from "../clients/LandingPage";
 
 
 function Pages() {
@@ -49,7 +50,8 @@ const SuperAuth = (routePage)=>Supertoken!==null?routePage:<Slogin /> || <Sregis
     
     <Routes>
           {/* cliens */}
-          <Route path="/" element={<Home />}/>
+          <Route path="/" element={<LandingPage />}/>
+          <Route path="/client" element={<Home />}/>
           <Route path="/detail/:Hid" element={<Details />} />
           <Route path="/log" element={<Log />} />
           

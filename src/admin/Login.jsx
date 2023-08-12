@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import "./scss/loginRegister.scss";
 import bg from "../assets/images/bg.jpg";
 import user from "../assets/images/user.png";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useStateContext } from "../assets/js/Context";
 
 
@@ -65,10 +65,19 @@ const [error, setError] = useState(null)
 
 
   return (
+    <>
     <div
-      className="contact_form_wrapper"
-      style={{ backgroundImage: `url(${bg})` }}
+      className="contact_form_wrapper relative"
+      style={{ backgroundImage: `url(${bg})` , 
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      // width: '100vw',
+      // height: '100vh'
+    }}
     >
+    <Link to='/' className="absolute top-10 left-10 text-semibold text-white bg-rose-500 px-6 rounded-sm"> Back</Link>
+
       <form className="contact_form" onSubmit={Login}>
         <div className="user_icon">
           <div>
@@ -81,7 +90,7 @@ const [error, setError] = useState(null)
         )}
         <div className="input_container">
           <input
-            type="text"
+            type="email"
             autoComplete="off"
             id="input"
             className="input_children input"
@@ -95,13 +104,13 @@ const [error, setError] = useState(null)
           <br />
         <div className="input_container">
           <input
-            type="text"
+            type="password"
             autoComplete="off"
             id="input"
             className="input_children input"
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
-          />
+            />
           <label className={`input_children label`} style={{top: password.length===0?10:-20}}>
             password
           </label>
@@ -109,7 +118,7 @@ const [error, setError] = useState(null)
 
         <button disabled={loginIndicator ? true : false}
           style={{backgroundColor:loginIndicator?'gray':''}}
-        >
+          >
           {loginIndicator?'. . .':'Login'}
           </button>
 
@@ -121,6 +130,7 @@ const [error, setError] = useState(null)
           </p>
       </form>
     </div>
+  </>
   );
 }
 

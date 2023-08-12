@@ -149,13 +149,12 @@ useEffect(()=>{
     setSending(false)
 
   if(__res.status===200){
-    toast('Added successfully') 
+    toast('Updated successfully') 
     setSending(false)
   }else{
     toast('There was an error')
     setSending(false)
   }
-  setSending(false)
     
   }
 

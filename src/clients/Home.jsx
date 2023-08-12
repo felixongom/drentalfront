@@ -53,7 +53,7 @@ function Home() {
           <div className='inner_container sm:block '>
             <div>
               <h1  className='font-bold hero_heading uppercase text-3xl max-w-2xl flex-wrap break-words'>
-                explore and find lodges & rentals in your area</h1>        
+                explore and find rentals in your area</h1>        
               <p className='text-white mt-8 pb-6 text-lg rounded'>Don't go far locking for a lodge or hose for rent, just find them all here and connect to the owner as quickly as posible</p>
               <a href='#item_container' 
                 onClick={

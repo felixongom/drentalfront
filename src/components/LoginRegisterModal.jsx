@@ -41,10 +41,10 @@ function LoginRegisterModal() {
       {loginRegisterSwitching && (
         <div className="inputModal login bg-white p-2 rounded">
           <div>
-            <input value={email} onChange={(e)=>onChangeEmail(e.target.value)} className="border border-black" placeholder="email" />
+            <input value={email} type="email" onChange={(e)=>onChangeEmail(e.target.value)} className="border border-black" placeholder="email" />
           </div>
           <div>
-            <input value={password} onChange={(e)=>onChangePassword(e.target.value)} className="border border-black" placeholder="Password" /> <br />
+            <input value={password} type="password" onChange={(e)=>onChangePassword(e.target.value)} className="border border-black" placeholder="Password" /> <br />
           </div>
 
           <button disabled= {authIndicator && true} onClick={()=>loginUser()} >{authIndicator?'Loging in. . . ':'Login'}</button>
@@ -66,13 +66,13 @@ function LoginRegisterModal() {
             <input value={name} onChange={(e)=>onChangeName(e.target.value)} className="border border-black" placeholder="Username" />
           </div>
           <div>
-            <input value={email} onChange={(e)=>onChangeEmail(e.target.value)} className="border border-black" placeholder="Email" /> <br />
+            <input value={email} type="email" onChange={(e)=>onChangeEmail(e.target.value)} className="border border-black" placeholder="Email" /> <br />
           </div>
           <div>
-            <input value={phone} onChange={(e)=>onChangePhone(e.target.value)} className="border border-black" placeholder="Phone" /> <br />
+            <input value={phone} type="number" onChange={(e)=>onChangePhone(e.target.value)} className="border border-black" placeholder="Phone" /> <br />
           </div>
           <div>
-            <input value={password} onChange={(e)=>onChangePassword(e.target.value)} className="border border-black" placeholder="Password" />{" "}
+            <input value={password} type="password" onChange={(e)=>onChangePassword(e.target.value)} className="border border-black" placeholder="Password" />{" "}
             <br />
           </div>
 

@@ -14,7 +14,7 @@ function Rigister() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(0);
 
   const [registerIndicator, setregisteIndicator] = useState(false);
   const [error, setError] = useState([]);
@@ -25,7 +25,7 @@ function Rigister() {
     const payload = {
       name,
       email,
-      phone,
+      phone:phone.toString(),
       password,
       usertype: "admin",
     };
@@ -35,7 +35,7 @@ function Rigister() {
     const res = await instance.post("/api/user/register", payload);
 
 
-    if (res.status === 200) {
+    if (res.status === 200 && res.status.lenth) {
       setName("");
       setEmail("");
       setPhone("");
@@ -53,10 +53,16 @@ function Rigister() {
 
   return (
     <div
-      className="contact_form_wrapper"
-      style={{ backgroundImage: `url(${bg})` }}
+      className="contact_form_wrapper relative"
+      style={{ backgroundImage: `url(${bg})` ,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      // width: '100vw',
+      // height: '100vh'
+    }}
     >
-      <form className="contact_form">
+      <form className="contact_form auth_form_design">
         <div className="user_icon">
           <div>
             <img src={user} alt="" />
@@ -90,7 +96,7 @@ function Rigister() {
 
         <div className="input_container">
           <input
-            type="text"
+            type="email"
             autoComplete="off"
             id="input"
             className="input_children input"
@@ -107,7 +113,7 @@ function Rigister() {
         <br />
         <div className="input_container">
           <input
-            type="text"
+            type="number"
             autoComplete="off"
             id="input"
             className={`input_children input `}
@@ -124,7 +130,7 @@ function Rigister() {
         <br />
         <div className="input_container">
           <input
-            type="text"
+            type="password"
             autoComplete="off"
             id="input"
             className="input_children input"

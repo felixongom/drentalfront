@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../admin/scss/loginRegister.scss"
 import bg from "../assets/images/bg.jpg";
+import { Link } from "react-router-dom";
 
 import {useEffect} from 'react'
 import user from "../assets/images/user.png";
@@ -53,9 +54,17 @@ function Slogin() {
   return (
     <div
       className="contact_form_wrapper"
-      style={{ backgroundImage: `url(${bg})` }}
+      style={{ backgroundImage: `url(${bg})` ,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      // width: '100vw',
+      // height: '100vh'
+    }}
     >
-      <form className="contact_form">
+      <Link to='/' className="absolute top-10 left-10 text-semibold text-white bg-rose-500 px-6 rounded-sm"> Back</Link>
+
+      <form className="contact_form auth_form_design">
         <div className="user_icon">
           <div>
             <img src={user} alt="" />
@@ -65,7 +74,7 @@ function Slogin() {
 
         <div className="input_container">
           <input
-            type="text"
+            type="email"
             autoComplete="off"
             id="input"
             className="input_children input"
@@ -79,7 +88,7 @@ function Slogin() {
           <br />
         <div className="input_container">
           <input
-            type="text"
+            type="password"
             autoComplete="off"
             id="input"
             className="input_children input"

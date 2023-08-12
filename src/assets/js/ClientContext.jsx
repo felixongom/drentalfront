@@ -188,7 +188,7 @@ const onChangePassword = (password)=>{
 const registerUser = async ()=>{
     setAuthIndicator(!authIndicator)
     const payload = {
-        name,email, password, phone,
+        name,email, password,phone:phone.toString(),
         usertype:'client'
     }
     
