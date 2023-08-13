@@ -68,7 +68,9 @@ const Superhouses = () => {
               </td>
               <td>
                 {item.approve ? (
-                  <small className="bg-orange-500 rounded-md text-black cursor-pointer pl-2 pr-2">
+                  <small 
+                    onClick={() => approveHouse(item)}
+                   className="bg-orange-500 rounded-md text-black cursor-pointer pl-2 pr-2">
                     {item.approve ? "Yes" : "No"}
                   </small>
                 ) : (

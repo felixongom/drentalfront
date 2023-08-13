@@ -186,7 +186,7 @@ useEffect(()=>{
             </div>
             <div className="pt-2">
               <small className="text-black-300 font-bold pb-2">
-                House type 
+                Room type 
               </small>
 
               <br />

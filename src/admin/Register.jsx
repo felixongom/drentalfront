@@ -14,7 +14,7 @@ function Rigister() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState(0);
+  const [phone, setPhone] = useState('');
 
   const [registerIndicator, setregisteIndicator] = useState(false);
   const [error, setError] = useState([]);

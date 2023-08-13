@@ -16,6 +16,8 @@ export const StateContext = ({ children }) => {
   const [deleted, setDeleted] = useState(true)
 
   const [deleteHouseId, setDeleteHouseId] = useState('')
+  const [deleteAUser, setDeleteAUser]= useState('')
+
 
   
   
@@ -114,7 +116,6 @@ const approveHouse =(h)=>{
   .then(res=>{
     setDeleted(!deleted)
     toast(res.data)
-    console.log(res);
   }) 
 }
 
@@ -146,11 +147,25 @@ const searchFuction = (text)=>{
 }
 
 // deleting user
-const deleteUser = async(id)=>{
-  const res = await sinstance.delete(`/api/user/${id}`)
+const deleteUser = async(id,)=>{
+  setDeleteHouseId(id)
+  setDeleteAUser('user')
+}
+
+//accept deleting user
+const acceptDeleteUser = async()=>{
+
+  const res = await sinstance.delete(`/api/user/${deleteHouseId}`)
   toast(res.data)
   setDeleted(deleted+1)
+  setDeleteHouseId('')
 }
+// denie deleting user
+const councelDeleteUser = ()=>{
+  setDeleteHouseId('')
+}
+// const requerst to delete a user
+
 
 // activate user
 const activateUser = async(id)=>{
@@ -183,6 +198,10 @@ const activateUser = async(id)=>{
         deleteHouseId,
         councelDeleting,
         acceptDeleting,
+
+        councelDeleteUser,
+        acceptDeleteUser,
+        deleteAUser,
 
 
         // superadminrequest

@@ -73,10 +73,23 @@
 
     
 }
+.landing_pageHeading {
+    font-size: 23px;
+    span{
+        font-size: 30px;
+        line-height: 200px;
+
+    }
+}
 @media only screen and (max-width: 750px) {
     .links_container {
         display: flex;
         flex-wrap: wrap;
     }
+    .landing_pageHeading {
+        display: none;
+        
+    }
 
 } 
+

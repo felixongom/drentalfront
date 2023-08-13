@@ -35,28 +35,35 @@ function Sdasboard() {
 
 
   // progrsss bar daa
-  const progressdata = [
-    {
-      type:'Rentals',
-      value:rentals?Math.ceil( rentals):0,
-      color:'#f26367',
+  // const progressdata = [
+  //   {
+  //     type:'Rentals',
+  //     value:rentals?Math.ceil( rentals):0,
+  //     color:'#f26367',
 
-    },
-    {
-      type:'Lodges',
-      value:lodges?Math.ceil(lodges):0,
-      color:'  #33bbff',
+  //   },
+  //   {
+  //     type:'Lodges',
+  //     value:lodges?Math.ceil(lodges):0,
+  //     color:'  #33bbff',
       
 
-    }, 
-    {
-      type:'Others',
-      value:other?Math.floor(other):0,
-      color:'#ace600',
+  //   }, 
+  //   {
+  //     type:'Others',
+  //     value:other?Math.floor(other):0,
+  //     color:'#ace600',
 
 
-    }
-  ]
+  //   }
+  // ]
+
+  const data = [
+    ["Task", "Hours per Day"],
+    ["Lodges", lodges?lodges:0,],
+    ["Rentals", rentals?rentals:0,],
+    ["Others", other?other:0,],
+  ];
 
   useEffect(()=>{
     const getUser = async()=>{
@@ -106,7 +113,7 @@ const userCount = allUsers.length
         </div>
 
         {/* progrssbar for rentals and lodges */}
-        <SprogrssBar  data={progressdata}/>
+        <SprogrssBar  data={data}/>
         <SpopularCustomers/>
       </div>
     </div>

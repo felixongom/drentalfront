@@ -9,7 +9,7 @@ import {useStateContext} from '../assets/js/Context'
 import LoadingIndicator from '../components/LoadingIndicator'
 
 function Scustommers() {
-  const { bottomPaginater, pageData, users, deleteUser, activateUser} = useStateContext()
+  const { bottomPaginater, pageData, users, deleteUser, activateUser, deleteHouseId} = useStateContext()
   const navigate = useNavigate() 
 
   const [page, setPage] =useState(1)
