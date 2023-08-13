@@ -59,8 +59,7 @@ function SRegister() {
 
     }
     
-    
-    if (res.status === 200) {
+    if (res.data.length === 0) {
       setName("");
       setEmail("");
       setPhone("");
@@ -70,13 +69,15 @@ function SRegister() {
       setregisteIndicator(false);
       id?toast('updated'):toast('registered')
       
-      if(res.status !==200){
+      if(res.data.length !==0){
         setregisteIndicator(false);
         setError(res.data);
         
       }
     } else {
       setregisteIndicator(false);
+      setError(res.data);
+      console.log(res.data);
     }
     setregisteIndicator(false);
   }
@@ -107,7 +108,7 @@ function SRegister() {
           <div>
             <h3 className="heading">
               {id?'update':'register'} super administrator</h3>
-          {err && err.map((item, i)=>(
+          {err.length>0 && err.map((item, i)=>(
             <div className="bg-red-300 mt-1 p-1 capitalize" key={i}>{item}</div>
           ))}
             <form className="superadmin_register_form">
@@ -115,14 +116,14 @@ function SRegister() {
                 <input value={name} onChange = {(e)=>setName(e.target.value)} placeholder="Username" />
               </div>
               <div>
-                <input value={email} onChange = {(e)=>setEmail(e.target.value)}  placeholder="Email" />
+                <input value={email} type="email" onChange = {(e)=>setEmail(e.target.value)}  placeholder="Email" />
               </div>
               <div>
-                <input value={phone} onChange = {(e)=>setPhone(e.target.value)}  placeholder="phone" />
+                <input value={phone} type="number" onChange = {(e)=>setPhone(e.target.value)}  placeholder="phone" />
               </div>
               {!id && 
               <div>
-                <input  value={password} onChange = {(e)=>setPassword(e.target.value)} placeholder="password" />
+                <input  value={password} type="password" onChange = {(e)=>setPassword(e.target.value)} placeholder="password" />
               </div>
               }
               <button  onClick={()=>submitForm()} type="button">{registeIndicator?'. . .':'Send'}</button>
